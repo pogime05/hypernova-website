@@ -55,7 +55,14 @@ const AuroraCanvas = () => {
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    container.appendChild(renderer.domElement);
+    // Force the canvas to fill its parent absolutely
+    const canvas = renderer.domElement;
+    canvas.style.position = "absolute";
+    canvas.style.inset = "0";
+    canvas.style.width = "100%";
+    canvas.style.height = "100%";
+    canvas.style.display = "block";
+    container.appendChild(canvas);
 
     const material = new THREE.ShaderMaterial({
       uniforms: {
@@ -163,22 +170,16 @@ const AuroraCanvas = () => {
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 w-full h-full"
-      style={{ zIndex: 0 }}
+      style={{ position: "relative", width: "100%", height: "100%" }}
     />
   );
 };
 
-// ── Public export: canvas wrapped in opacity + error boundary ─────────────────
+// ── Public export: error boundary only — positioning owned by page.tsx ────────
 
 const AnoAI = () => (
   <ShaderErrorBoundary>
-    <div
-      className="fixed inset-0 w-full h-full pointer-events-none"
-      style={{ zIndex: 0, opacity: 0.35 }}
-    >
-      <AuroraCanvas />
-    </div>
+    <AuroraCanvas />
   </ShaderErrorBoundary>
 );
 
