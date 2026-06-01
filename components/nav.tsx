@@ -42,7 +42,7 @@ export default function Nav() {
               <Logo3DMini />
             </div>
             <span className="font-display font-bold text-lg tracking-tight text-primary">
-              HyperNova
+              HyperNova Technologies
             </span>
           </a>
 

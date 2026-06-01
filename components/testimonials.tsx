@@ -7,7 +7,7 @@ import { Quote } from "lucide-react";
 const testimonials = [
   {
     quote:
-      "HyperNova rebuilt our entire web presence in three weeks. No missed deadlines, no vague updates — just a site that finally converts. Our lead form submissions doubled in the first month.",
+      "HyperNova Technologies rebuilt our entire web presence in three weeks. No missed deadlines, no vague updates — just a site that finally converts. Our lead form submissions doubled in the first month.",
     name: "Adriana Reyes",
     role: "CEO",
     company: "Crest Digital",
@@ -16,7 +16,7 @@ const testimonials = [
   },
   {
     quote:
-      "I've worked with four different agencies in the past two years. HyperNova is the only one that felt like a real partner. They pushed back when our ideas were wrong and shipped when they said they would.",
+      "I've worked with four different agencies in the past two years. HyperNova Technologies is the only one that felt like a real partner. They pushed back when our ideas were wrong and shipped when they said they would.",
     name: "Marcus Chen",
     role: "Founder",
     company: "ShiftHR",

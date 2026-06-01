@@ -62,7 +62,7 @@ export default function Footer() {
               <div className="w-9 h-9">
                 <Logo3DMini />
               </div>
-              <span className="font-display font-bold text-lg text-primary">HyperNova</span>
+              <span className="font-display font-bold text-lg text-primary">HyperNova Technologies</span>
             </div>
             <p className="text-sm text-muted leading-relaxed max-w-xs">
               We build digital things that actually work. Boutique studio, production quality.
