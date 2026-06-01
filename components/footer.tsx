@@ -62,7 +62,7 @@ export default function Footer() {
               <div className="w-9 h-9">
                 <Logo3DMini />
               </div>
-              <span className="font-display font-bold text-lg text-primary">HyperNova Technologies</span>
+              <span className="font-orbitron font-bold text-sm tracking-wider uppercase text-primary">HyperNova Technologies</span>
             </div>
             <p className="text-sm text-muted leading-relaxed max-w-xs">
               We build digital things that actually work. Boutique studio, production quality.
@@ -123,7 +123,7 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="pt-8 border-t border-white/[0.06] flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs text-muted">
-            © 2025 HyperNova Technologies. Built with intent.
+            © 2025 <span className="font-orbitron tracking-wider uppercase">HyperNova Technologies</span>. Built with intent.
           </p>
           <div className="flex gap-4">
             <a href="#" className="text-xs text-muted hover:text-primary transition-colors">

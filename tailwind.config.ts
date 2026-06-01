@@ -19,6 +19,7 @@ const config: Config = {
       fontFamily: {
         sans: ["var(--font-inter)", "sans-serif"],
         display: ["var(--font-syne)", "sans-serif"],
+        orbitron: ["var(--font-orbitron)", "sans-serif"],
       },
       animation: {
         "marquee": "marquee 35s linear infinite",

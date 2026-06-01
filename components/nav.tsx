@@ -41,7 +41,7 @@ export default function Nav() {
             <div className="w-10 h-10 flex-shrink-0">
               <Logo3DMini />
             </div>
-            <span className="font-display font-bold text-lg tracking-tight text-primary">
+            <span className="font-orbitron font-bold text-sm tracking-wider uppercase text-primary">
               HyperNova Technologies
             </span>
           </a>
