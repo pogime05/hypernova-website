@@ -7,19 +7,26 @@ import Process from "@/components/process";
 import Testimonials from "@/components/testimonials";
 import Contact from "@/components/contact";
 import Footer from "@/components/footer";
+import ScrollWatermark from "@/components/scroll-watermark";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-bg text-primary overflow-x-hidden">
-      <Nav />
-      <Hero />
-      <Marquee />
-      <Services />
-      <Work />
-      <Process />
-      <Testimonials />
-      <Contact />
-      <Footer />
-    </main>
+    <>
+      {/* Fixed background watermark — sits behind everything */}
+      <ScrollWatermark />
+
+      {/* Page content — stacked above the watermark */}
+      <main className="relative z-10 min-h-screen bg-bg text-primary overflow-x-hidden">
+        <Nav />
+        <Hero />
+        <Marquee />
+        <Services />
+        <Work />
+        <Process />
+        <Testimonials />
+        <Contact />
+        <Footer />
+      </main>
+    </>
   );
 }
