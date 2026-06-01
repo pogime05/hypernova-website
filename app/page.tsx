@@ -1,3 +1,4 @@
+import dynamic from "next/dynamic";
 import Nav from "@/components/nav";
 import Hero from "@/components/hero";
 import Marquee from "@/components/marquee";
@@ -8,18 +9,29 @@ import Testimonials from "@/components/testimonials";
 import Contact from "@/components/contact";
 import Footer from "@/components/footer";
 
+const ShaderBackground = dynamic(
+  () => import("@/components/ui/animated-shader-background"),
+  { ssr: false }
+);
+
 export default function Home() {
   return (
-    <main className="min-h-screen text-primary overflow-x-hidden">
-      <Nav />
-      <Hero />
-      <Marquee />
-      <Services />
-      <Work />
-      <Process />
-      <Testimonials />
-      <Contact />
-      <Footer />
-    </main>
+    <>
+      {/* Aurora shader — fixed full-screen at z-0, 35% opacity */}
+      <ShaderBackground />
+
+      {/* Page content — stacked above the shader */}
+      <main className="relative z-10 min-h-screen text-primary overflow-x-hidden">
+        <Nav />
+        <Hero />
+        <Marquee />
+        <Services />
+        <Work />
+        <Process />
+        <Testimonials />
+        <Contact />
+        <Footer />
+      </main>
+    </>
   );
 }
