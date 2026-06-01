@@ -16,7 +16,7 @@ export default function Home() {
       <ScrollWatermark />
 
       {/* Page content — stacked above the watermark */}
-      <main className="relative z-10 min-h-screen bg-bg text-primary overflow-x-hidden">
+      <main className="relative z-10 min-h-screen text-primary overflow-x-hidden">
         <Nav />
         <Hero />
         <Marquee />
