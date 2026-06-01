@@ -3,10 +3,8 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import dynamic from "next/dynamic";
+import Image from "next/image";
 import { Button } from "./ui/button";
-
-const Logo3DMini = dynamic(() => import("./logo3d-mini"), { ssr: false });
 
 const navLinks = [
   { label: "Work", href: "#work" },
@@ -38,9 +36,13 @@ export default function Nav() {
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           {/* Logo */}
           <a href="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 flex-shrink-0">
-              <Logo3DMini />
-            </div>
+            <Image
+              src="/logo.png"
+              alt="HyperNova Technologies"
+              height={40}
+              width={160}
+              className="h-10 w-auto object-contain"
+            />
             <span className="font-orbitron font-bold text-sm tracking-wider uppercase text-primary">
               HyperNova Technologies
             </span>

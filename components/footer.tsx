@@ -1,9 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import dynamic from "next/dynamic";
-
-const Logo3DMini = dynamic(() => import("./logo3d-mini"), { ssr: false });
+import Image from "next/image";
 
 const navLinks = [
   { label: "Work", href: "#work" },
@@ -58,12 +56,14 @@ export default function Footer() {
         <div className="grid md:grid-cols-3 gap-12 mb-12">
           {/* Brand */}
           <div className="flex flex-col gap-4">
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9">
-                <Logo3DMini />
-              </div>
-              <span className="font-orbitron font-bold text-sm tracking-wider uppercase text-primary">HyperNova Technologies</span>
-            </div>
+            <Image
+              src="/logo.png"
+              alt="HyperNova Technologies"
+              height={50}
+              width={200}
+              className="h-[50px] w-auto object-contain"
+            />
+            <span className="font-orbitron font-bold text-sm tracking-wider uppercase text-primary">HyperNova Technologies</span>
             <p className="text-sm text-muted leading-relaxed max-w-xs">
               We build digital things that actually work. Boutique studio, production quality.
             </p>

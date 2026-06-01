@@ -27,6 +27,9 @@ export const metadata: Metadata = {
     "We design and develop websites, apps, and digital experiences for founders, brands, and businesses ready to grow.",
   keywords: ["web development", "digital studio", "web apps", "mobile apps", "digital cards"],
   metadataBase: new URL("https://hypernova-website.vercel.app"),
+  icons: {
+    icon: "/logo.png",
+  },
   openGraph: {
     title: "HyperNova Technologies — We build digital things that actually work.",
     description:
