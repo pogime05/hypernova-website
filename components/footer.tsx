@@ -56,13 +56,25 @@ export default function Footer() {
         <div className="grid md:grid-cols-3 gap-12 mb-12">
           {/* Brand */}
           <div className="flex flex-col gap-4">
-            <Image
-              src="/logo.png"
-              alt="HyperNova Technologies"
-              height={50}
-              width={200}
-              className="h-[50px] w-auto object-contain"
-            />
+            <motion.div
+              className="w-fit"
+              animate={{
+                filter: [
+                  "drop-shadow(0 0 4px #6C47FF)",
+                  "drop-shadow(0 0 16px #6C47FF)",
+                  "drop-shadow(0 0 4px #6C47FF)",
+                ],
+              }}
+              transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" as const }}
+            >
+              <Image
+                src="/logo.png"
+                alt="HyperNova Technologies"
+                height={64}
+                width={256}
+                className="h-16 w-auto object-contain"
+              />
+            </motion.div>
             <span className="font-orbitron font-bold text-sm tracking-wider uppercase text-primary">HyperNova Technologies</span>
             <p className="text-sm text-muted leading-relaxed max-w-xs">
               We build digital things that actually work. Boutique studio, production quality.

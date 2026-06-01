@@ -36,13 +36,24 @@ export default function Nav() {
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           {/* Logo */}
           <a href="/" className="flex items-center gap-3 group">
-            <Image
-              src="/logo.png"
-              alt="HyperNova Technologies"
-              height={40}
-              width={160}
-              className="h-10 w-auto object-contain"
-            />
+            <motion.div
+              animate={{
+                filter: [
+                  "drop-shadow(0 0 4px #6C47FF)",
+                  "drop-shadow(0 0 12px #6C47FF)",
+                  "drop-shadow(0 0 4px #6C47FF)",
+                ],
+              }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" as const }}
+            >
+              <Image
+                src="/logo.png"
+                alt="HyperNova Technologies"
+                height={48}
+                width={48}
+                className="h-12 w-12 object-contain"
+              />
+            </motion.div>
             <span className="font-orbitron font-bold text-sm tracking-wider uppercase text-primary">
               HyperNova Technologies
             </span>

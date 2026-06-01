@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useEffect, Component, type ErrorInfo, type ReactNode } from "react";
+import { useRef, useState, useEffect, useMemo, Component, type ErrorInfo, type ReactNode } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Environment, MeshDistortMaterial, Float } from "@react-three/drei";
 import * as THREE from "three";
@@ -95,6 +95,13 @@ function NovaGeometry({ hovered }: { hovered: boolean }) {
   const lightRef = useRef<THREE.PointLight>(null);
   const time = useRef(0);
 
+  const logoTexture = useMemo(() => {
+    const tex = new THREE.TextureLoader().load("/logo.png");
+    tex.wrapS = THREE.RepeatWrapping;
+    tex.wrapT = THREE.RepeatWrapping;
+    return tex;
+  }, []);
+
   useFrame((_, delta) => {
     time.current += delta;
     const speed = hovered ? 1.8 : 0.4;
@@ -144,9 +151,10 @@ function NovaGeometry({ hovered }: { hovered: boolean }) {
         <mesh ref={innerRef}>
           <octahedronGeometry args={[0.9, 0]} />
           <MeshDistortMaterial
-            color="#6C47FF"
-            metalness={0.9}
-            roughness={0.05}
+            map={logoTexture}
+            color="#ffffff"
+            metalness={0.7}
+            roughness={0.1}
             emissive="#5533ee"
             emissiveIntensity={hovered ? 0.6 : 0.3}
             distort={hovered ? 0.3 : 0.1}
