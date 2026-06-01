@@ -17,8 +17,10 @@ const ShaderBackground = dynamic(
 export default function Home() {
   return (
     <>
-      {/* Aurora shader — fixed full-screen at z-0, 35% opacity */}
-      <ShaderBackground />
+      {/* Aurora shader — fixed full-screen at z-0, 40% opacity */}
+      <div className="fixed inset-0 w-full h-full" style={{ zIndex: 0, opacity: 0.4 }}>
+        <ShaderBackground />
+      </div>
 
       {/* Page content — stacked above the shader */}
       <main className="relative z-10 min-h-screen text-primary overflow-x-hidden">

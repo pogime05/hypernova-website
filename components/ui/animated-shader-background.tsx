@@ -59,7 +59,7 @@ const AuroraCanvas = () => {
 
     const material = new THREE.ShaderMaterial({
       uniforms: {
-        iTime: { value: 0 },
+        iTime: { value: 2.5 },
         iResolution: {
           value: new THREE.Vector2(window.innerWidth, window.innerHeight),
         },
@@ -139,22 +139,17 @@ const AuroraCanvas = () => {
     const mesh = new THREE.Mesh(geometry, material);
     scene.add(mesh);
 
-    let frameId: number;
-    const animate = () => {
-      material.uniforms.iTime.value += 0.016;
-      renderer.render(scene, camera);
-      frameId = requestAnimationFrame(animate);
-    };
-    animate();
+    // Render once — static frame, no animation loop
+    renderer.render(scene, camera);
 
     const handleResize = () => {
       renderer.setSize(window.innerWidth, window.innerHeight);
       material.uniforms.iResolution.value.set(window.innerWidth, window.innerHeight);
+      renderer.render(scene, camera);
     };
     window.addEventListener("resize", handleResize);
 
     return () => {
-      cancelAnimationFrame(frameId);
       window.removeEventListener("resize", handleResize);
       if (container.contains(renderer.domElement)) {
         container.removeChild(renderer.domElement);
