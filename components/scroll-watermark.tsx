@@ -16,11 +16,11 @@ export default function ScrollWatermark() {
     mass: 0.5,
   });
 
-  // Map |velocity| → opacity: resting = 0.04, actively scrolling peaks at 0.12
+  // Map |velocity| → opacity: resting = 0.12, actively scrolling peaks at 0.20
   const opacity = useTransform(
     smoothVelocity,
     [-1200, -400, 0, 400, 1200],
-    [0.10, 0.07, 0.04, 0.07, 0.10]
+    [0.20, 0.16, 0.12, 0.16, 0.20]
   );
 
   // Slight scale bloom while scrolling: resting = 1.0, moving = 1.06
@@ -48,6 +48,7 @@ export default function ScrollWatermark() {
           className="object-contain"
           priority={false}
           draggable={false}
+          style={{ filter: "invert(1) hue-rotate(220deg) saturate(2) brightness(1.5)" }}
         />
       </motion.div>
     </motion.div>
