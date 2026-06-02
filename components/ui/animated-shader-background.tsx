@@ -170,7 +170,12 @@ const AuroraCanvas = () => {
   return (
     <div
       ref={containerRef}
-      style={{ position: "relative", width: "100%", height: "100%" }}
+      style={{
+        position: "absolute",
+        inset: 0,
+        width: "100vw",
+        height: "100vh",
+      }}
     />
   );
 };

@@ -52,7 +52,10 @@ export default function Hero() {
             </motion.div>
 
             <motion.div variants={fadeUp} className="flex flex-col gap-2">
-              <h1 className="font-display font-black text-6xl md:text-7xl lg:text-8xl leading-none tracking-tight text-primary">
+              <h1
+                className="font-display font-black text-6xl md:text-7xl lg:text-8xl tracking-tight leading-none"
+                style={{ WebkitTextStroke: "2px #F0F0F5", color: "transparent" }}
+              >
                 Digital products
               </h1>
               <h1 className="font-display font-black text-6xl md:text-7xl lg:text-8xl leading-none tracking-tight">
@@ -60,7 +63,7 @@ export default function Hero() {
                   built to outlast
                 </span>
               </h1>
-              <h1 className="font-display font-black text-6xl md:text-7xl lg:text-8xl leading-none tracking-tight text-primary">
+              <h1 className="font-display font-black text-6xl md:text-7xl lg:text-8xl leading-none tracking-tight text-white">
                 the hype.
               </h1>
             </motion.div>

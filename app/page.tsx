@@ -17,8 +17,18 @@ const ShaderBackground = dynamic(
 export default function Home() {
   return (
     <>
-      {/* Aurora shader — fixed full-screen at z-0, 40% opacity */}
-      <div className="fixed inset-0 w-full h-full" style={{ zIndex: 0, opacity: 0.4 }}>
+      {/* Aurora shader — fixed full-screen at z-0, 50% opacity */}
+      <div
+        style={{
+          position: "fixed",
+          inset: 0,
+          width: "100vw",
+          height: "100vh",
+          zIndex: 0,
+          opacity: 0.5,
+          pointerEvents: "none",
+        }}
+      >
         <ShaderBackground />
       </div>
 

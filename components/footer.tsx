@@ -75,7 +75,23 @@ export default function Footer() {
                 className="h-16 w-auto object-contain"
               />
             </motion.div>
-            <span className="font-orbitron font-bold text-sm tracking-wider uppercase text-primary">HyperNova Technologies</span>
+            <motion.span
+              className="font-orbitron font-bold text-sm tracking-wider uppercase w-fit"
+              animate={{
+                backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+              }}
+              transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+              style={{
+                background:
+                  "linear-gradient(90deg, #6C47FF, #00D9FF, #a855f7, #6C47FF)",
+                backgroundSize: "200% 200%",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
+            >
+              HyperNova Technologies
+            </motion.span>
             <p className="text-sm text-muted leading-relaxed max-w-xs">
               We build digital things that actually work. Boutique studio, production quality.
             </p>

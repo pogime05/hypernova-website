@@ -54,9 +54,23 @@ export default function Nav() {
                 className="h-11 w-11 object-contain"
               />
             </motion.div>
-            <span className="font-orbitron font-bold text-sm md:text-base tracking-wider uppercase text-primary">
+            <motion.span
+              className="font-orbitron font-bold text-sm md:text-base tracking-wider uppercase"
+              animate={{
+                backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+              }}
+              transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+              style={{
+                background:
+                  "linear-gradient(90deg, #6C47FF, #00D9FF, #a855f7, #6C47FF)",
+                backgroundSize: "200% 200%",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
+            >
               HyperNova Technologies
-            </span>
+            </motion.span>
           </a>
 
           {/* Desktop links */}
