@@ -165,7 +165,7 @@ function NovaGeometry({ hovered }: { hovered: boolean }) {
 
       <Float speed={1.5} rotationIntensity={0.2} floatIntensity={0.3}>
         <mesh ref={outerRef}>
-          <icosahedronGeometry args={[2.2, 1]} />
+          <icosahedronGeometry args={[1.2, 1]} />
           <meshStandardMaterial
             color="#6C47FF"
             metalness={0.9}
@@ -179,7 +179,7 @@ function NovaGeometry({ hovered }: { hovered: boolean }) {
         </mesh>
 
         <mesh ref={innerRef}>
-          <octahedronGeometry args={[1.4, 0]} />
+          <octahedronGeometry args={[0.8, 0]} />
           <MeshDistortMaterial
             map={logoTexture}
             color="#ffffff"
@@ -193,7 +193,7 @@ function NovaGeometry({ hovered }: { hovered: boolean }) {
         </mesh>
 
         <mesh ref={ringRef} rotation={[Math.PI / 3, 0, 0]}>
-          <torusGeometry args={[2.8, 0.03, 8, 64]} />
+          <torusGeometry args={[1.6, 0.025, 8, 64]} />
           <meshStandardMaterial
             color="#00D9FF"
             metalness={1}
@@ -204,7 +204,7 @@ function NovaGeometry({ hovered }: { hovered: boolean }) {
         </mesh>
 
         <mesh rotation={[Math.PI / 1.5, Math.PI / 4, 0]}>
-          <torusGeometry args={[2.5, 0.02, 8, 64]} />
+          <torusGeometry args={[1.4, 0.018, 8, 64]} />
           <meshStandardMaterial
             color="#6C47FF"
             metalness={1}
@@ -248,7 +248,7 @@ export default function Logo3D() {
         onMouseLeave={() => setHovered(false)}
       >
         <Canvas
-          camera={{ position: [0, 0, 4], fov: 45 }}
+          camera={{ position: [0, 0, 6], fov: 45 }}
           gl={{ alpha: true, antialias: true, failIfMajorPerformanceCaveat: false }}
           style={{ background: "transparent" }}
         >

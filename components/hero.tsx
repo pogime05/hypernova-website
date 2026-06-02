@@ -115,7 +115,7 @@ export default function Hero() {
                     "radial-gradient(circle at center, rgba(108,71,255,0.12) 0%, rgba(0,217,255,0.05) 50%, transparent 70%)",
                 }}
               />
-              <div style={{ width: "100%", height: "500px" }}>
+              <div style={{ width: "100%", height: "520px", overflow: "hidden" }}>
                 <Logo3D />
               </div>
             </div>
