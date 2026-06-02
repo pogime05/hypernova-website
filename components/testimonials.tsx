@@ -39,7 +39,7 @@ export default function Testimonials() {
   const inView = useInView(ref, { once: true, amount: 0.2 });
 
   return (
-    <section className="py-32 relative overflow-hidden" ref={ref}>
+    <section className="py-32 relative overflow-hidden border-t border-white/[0.04] bg-transparent" ref={ref}>
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute bottom-0 right-1/4 w-72 h-72 bg-cyan/5 rounded-full blur-[100px]" />
       </div>

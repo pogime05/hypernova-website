@@ -49,12 +49,12 @@ export default function Nav() {
               <Image
                 src="/logo.png"
                 alt="HyperNova Technologies"
-                height={48}
-                width={48}
-                className="h-12 w-12 object-contain"
+                height={44}
+                width={44}
+                className="h-11 w-11 object-contain"
               />
             </motion.div>
-            <span className="font-orbitron font-bold text-sm tracking-wider uppercase text-primary">
+            <span className="font-orbitron font-bold text-sm md:text-base tracking-wider uppercase text-primary">
               HyperNova Technologies
             </span>
           </a>
@@ -65,7 +65,7 @@ export default function Nav() {
               <a
                 key={link.href}
                 href={link.href}
-                className="text-sm text-muted hover:text-primary transition-colors duration-200 relative group"
+                className="text-sm font-medium text-muted hover:text-white transition-colors duration-200 relative group"
               >
                 {link.label}
                 <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-accent group-hover:w-full transition-all duration-300" />
@@ -75,9 +75,14 @@ export default function Nav() {
 
           {/* CTA */}
           <div className="hidden md:block">
-            <Button href="#contact" size="sm">
+            <motion.a
+              href="#contact"
+              className="inline-flex items-center justify-center bg-accent text-white font-semibold px-5 py-2.5 rounded-lg hover:bg-[#7c5aff] transition-colors shadow-lg shadow-accent/20"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
               Start a Project →
-            </Button>
+            </motion.a>
           </div>
 
           {/* Mobile burger */}

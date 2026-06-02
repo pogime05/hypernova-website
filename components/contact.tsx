@@ -29,7 +29,7 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="py-32 relative overflow-hidden" ref={ref}>
+    <section id="contact" className="py-32 relative overflow-hidden border-t border-white/[0.04] bg-white/[0.01]" ref={ref}>
       {/* Accent gradient border top */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent to-transparent" />
 

@@ -2,7 +2,6 @@
 
 import { motion, type Variants } from "framer-motion";
 import dynamic from "next/dynamic";
-import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
 import { ArrowRight } from "lucide-react";
 
@@ -53,13 +52,15 @@ export default function Hero() {
             </motion.div>
 
             <motion.div variants={fadeUp} className="flex flex-col gap-2">
-              <h1 className="font-display font-extrabold text-5xl md:text-6xl lg:text-7xl leading-[0.95] tracking-tight text-primary">
+              <h1 className="font-display font-black text-6xl md:text-7xl lg:text-8xl leading-none tracking-tight text-primary">
                 Digital products
               </h1>
-              <h1 className="font-display font-extrabold text-5xl md:text-6xl lg:text-7xl leading-[0.95] tracking-tight">
-                <span className="gradient-text">built to outlast</span>
+              <h1 className="font-display font-black text-6xl md:text-7xl lg:text-8xl leading-none tracking-tight">
+                <span className="bg-gradient-to-r from-[#6C47FF] to-[#00D9FF] bg-clip-text text-transparent">
+                  built to outlast
+                </span>
               </h1>
-              <h1 className="font-display font-extrabold text-5xl md:text-6xl lg:text-7xl leading-[0.95] tracking-tight text-primary">
+              <h1 className="font-display font-black text-6xl md:text-7xl lg:text-8xl leading-none tracking-tight text-primary">
                 the hype.
               </h1>
             </motion.div>
@@ -72,40 +73,29 @@ export default function Hero() {
               founders, brands, and businesses ready to grow.
             </motion.p>
 
-            <motion.div variants={fadeUp} className="flex flex-wrap gap-3 pt-2">
-              <Button href="#work" size="lg">
+            <motion.div variants={fadeUp} className="flex flex-wrap gap-4 pt-2">
+              <motion.a
+                href="#work"
+                className="inline-flex items-center justify-center gap-2 bg-[#6C47FF] hover:bg-violet-500 text-white font-bold px-8 py-4 rounded-xl text-lg transition-colors"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
                 See Our Work <ArrowRight size={18} />
-              </Button>
-              <Button href="#process" size="lg" variant="ghost">
+              </motion.a>
+              <motion.a
+                href="#process"
+                className="inline-flex items-center justify-center border border-white/20 hover:border-white/50 text-white font-medium px-8 py-4 rounded-xl text-lg backdrop-blur-sm bg-white/5 transition-colors"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
                 How We Work
-              </Button>
+              </motion.a>
             </motion.div>
 
-            <motion.div
-              variants={fadeUp}
-              className="flex items-center gap-6 pt-4"
-            >
-              <div className="flex -space-x-2">
-                {["A", "M", "K", "R"].map((l, i) => (
-                  <div
-                    key={i}
-                    className="w-8 h-8 rounded-full border-2 border-bg flex items-center justify-center text-xs font-bold"
-                    style={{
-                      background: `hsl(${i * 60 + 240}, 70%, 50%)`,
-                    }}
-                  >
-                    {l}
-                  </div>
-                ))}
-              </div>
-              <div>
-                <p className="text-sm text-primary font-medium">
-                  Trusted by 30+ clients
-                </p>
-                <p className="text-xs text-muted">
-                  across 12 countries
-                </p>
-              </div>
+            <motion.div variants={fadeUp} className="pt-4">
+              <p className="text-muted text-sm tracking-widest uppercase opacity-60">
+                Digital Cards · Web Apps · Mobile Apps · Marketing Sites
+              </p>
             </motion.div>
           </motion.div>
 

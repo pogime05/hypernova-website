@@ -122,9 +122,9 @@ const AuroraCanvas = () => {
             float tailNoise = fbm(v + vec2(iTime * 0.5, i)) * 0.3 * (1.0 - (i / 35.0));
 
             vec4 auroraColors = vec4(
-              0.1 + 0.3 * sin(i * 0.2 + iTime * 0.4),
-              0.3 + 0.5 * cos(i * 0.3 + iTime * 0.5),
-              0.7 + 0.3 * sin(i * 0.4 + iTime * 0.3),
+              0.2 + 0.3 * sin(i * 0.2 + iTime * 0.4),   // R: violet tones
+              0.1 + 0.2 * cos(i * 0.3 + iTime * 0.5),   // G: low green keeps it purple
+              0.4 + 0.3 * sin(i * 0.4 + iTime * 0.3),   // B: blue/violet
               1.0
             );
 

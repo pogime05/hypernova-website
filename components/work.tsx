@@ -45,7 +45,7 @@ export default function Work() {
   const inView = useInView(ref, { once: true, amount: 0.15 });
 
   return (
-    <section id="work" className="py-32 relative" ref={ref}>
+    <section id="work" className="py-32 relative border-t border-white/[0.04] bg-transparent" ref={ref}>
       <div className="max-w-7xl mx-auto px-6">
         {/* Header */}
         <motion.div

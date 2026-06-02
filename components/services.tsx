@@ -56,7 +56,7 @@ export default function Services() {
   const inView = useInView(ref, { once: true, amount: 0.2 });
 
   return (
-    <section id="services" className="py-32 relative" ref={ref}>
+    <section id="services" className="py-32 relative border-t border-white/[0.04] bg-white/[0.01]" ref={ref}>
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-32 bg-gradient-to-b from-white/[0.06] to-transparent" />
 
       <div className="max-w-7xl mx-auto px-6">

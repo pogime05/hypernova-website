@@ -52,12 +52,12 @@ const socials = [
 export default function Footer() {
   return (
     <footer className="relative border-t border-white/[0.06]">
-      <div className="max-w-7xl mx-auto px-6 py-16">
+      <div className="max-w-7xl mx-auto px-6 pt-20 pb-10">
         <div className="grid md:grid-cols-3 gap-12 mb-12">
           {/* Brand */}
           <div className="flex flex-col gap-4">
             <motion.div
-              className="w-fit"
+              className="w-fit mb-4"
               animate={{
                 filter: [
                   "drop-shadow(0 0 4px #6C47FF)",

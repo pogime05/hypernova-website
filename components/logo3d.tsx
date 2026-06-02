@@ -172,19 +172,6 @@ function NovaGeometry({ hovered }: { hovered: boolean }) {
             emissiveIntensity={hovered ? 1 : 0.4}
           />
         </mesh>
-
-        <mesh rotation={[Math.PI / 1.5, Math.PI / 4, 0]}>
-          <torusGeometry args={[1.6, 0.02, 8, 64]} />
-          <meshStandardMaterial
-            color="#6C47FF"
-            metalness={1}
-            roughness={0}
-            emissive="#6C47FF"
-            emissiveIntensity={hovered ? 0.8 : 0.3}
-            transparent
-            opacity={0.6}
-          />
-        </mesh>
       </Float>
     </>
   );

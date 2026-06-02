@@ -44,7 +44,7 @@ export default function Process() {
   const inView = useInView(ref, { once: true, amount: 0.15 });
 
   return (
-    <section id="process" className="py-32 relative overflow-hidden" ref={ref}>
+    <section id="process" className="py-32 relative overflow-hidden border-t border-white/[0.04] bg-white/[0.01]" ref={ref}>
       {/* Background decoration */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/2 left-1/4 w-64 h-64 bg-accent/5 rounded-full blur-[100px]" />
