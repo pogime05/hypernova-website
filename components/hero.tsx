@@ -104,16 +104,20 @@ export default function Hero() {
 
           {/* Right — 3D Logo */}
           <motion.div
-            className="flex items-center justify-center"
+            className="flex items-center justify-center min-h-[450px] lg:min-h-[600px]"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className="relative w-full max-w-md aspect-square">
-              {/* Glow behind the 3D */}
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                <div className="w-64 h-64 bg-accent/20 rounded-full blur-[80px]" />
-              </div>
+            <div className="relative w-full h-full min-h-[450px] lg:min-h-[600px]">
+              {/* Radial glow behind the 3D — softens the empty space */}
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  background:
+                    "radial-gradient(circle at center, rgba(108,71,255,0.12) 0%, rgba(0,217,255,0.05) 50%, transparent 70%)",
+                }}
+              />
               <Logo3D />
             </div>
           </motion.div>

@@ -92,6 +92,7 @@ function NovaGeometry({ hovered }: { hovered: boolean }) {
   const outerRef = useRef<THREE.Mesh>(null);
   const innerRef = useRef<THREE.Mesh>(null);
   const ringRef = useRef<THREE.Mesh>(null);
+  const particlesRef = useRef<THREE.Points>(null);
   const lightRef = useRef<THREE.PointLight>(null);
   const time = useRef(0);
 
@@ -100,6 +101,22 @@ function NovaGeometry({ hovered }: { hovered: boolean }) {
     tex.wrapS = THREE.RepeatWrapping;
     tex.wrapT = THREE.RepeatWrapping;
     return tex;
+  }, []);
+
+  // Starfield — 200 random points inside a sphere of radius 4
+  const particlesGeometry = useMemo(() => {
+    const positions = new Float32Array(200 * 3);
+    for (let i = 0; i < 200; i++) {
+      const r = 4 * Math.cbrt(Math.random());
+      const theta = Math.random() * Math.PI * 2;
+      const phi = Math.acos(2 * Math.random() - 1);
+      positions[i * 3] = r * Math.sin(phi) * Math.cos(theta);
+      positions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
+      positions[i * 3 + 2] = r * Math.cos(phi);
+    }
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+    return geo;
   }, []);
 
   useFrame((_, delta) => {
@@ -118,6 +135,9 @@ function NovaGeometry({ hovered }: { hovered: boolean }) {
       ringRef.current.rotation.z += delta * 0.3;
       ringRef.current.rotation.x = Math.sin(time.current * 0.5) * 0.3;
     }
+    if (particlesRef.current) {
+      particlesRef.current.rotation.y += delta * 0.05;
+    }
     if (lightRef.current) {
       lightRef.current.position.x = Math.sin(time.current * 1.2) * 3;
       lightRef.current.position.z = Math.cos(time.current * 1.2) * 3;
@@ -133,9 +153,19 @@ function NovaGeometry({ hovered }: { hovered: boolean }) {
       <pointLight position={[5, 5, 5]} intensity={1.5} color="#6C47FF" />
       <pointLight ref={lightRef} position={[3, 0, 3]} intensity={1.2} color="#00D9FF" />
 
+      <points ref={particlesRef} geometry={particlesGeometry}>
+        <pointsMaterial
+          size={0.02}
+          color="#6C47FF"
+          transparent
+          opacity={0.6}
+          sizeAttenuation
+        />
+      </points>
+
       <Float speed={1.5} rotationIntensity={0.2} floatIntensity={0.3}>
         <mesh ref={outerRef}>
-          <icosahedronGeometry args={[1.4, 1]} />
+          <icosahedronGeometry args={[2.2, 1]} />
           <meshStandardMaterial
             color="#6C47FF"
             metalness={0.9}
@@ -149,7 +179,7 @@ function NovaGeometry({ hovered }: { hovered: boolean }) {
         </mesh>
 
         <mesh ref={innerRef}>
-          <octahedronGeometry args={[0.9, 0]} />
+          <octahedronGeometry args={[1.4, 0]} />
           <MeshDistortMaterial
             map={logoTexture}
             color="#ffffff"
@@ -163,13 +193,26 @@ function NovaGeometry({ hovered }: { hovered: boolean }) {
         </mesh>
 
         <mesh ref={ringRef} rotation={[Math.PI / 3, 0, 0]}>
-          <torusGeometry args={[1.8, 0.03, 8, 64]} />
+          <torusGeometry args={[2.8, 0.03, 8, 64]} />
           <meshStandardMaterial
             color="#00D9FF"
             metalness={1}
             roughness={0}
             emissive="#00D9FF"
             emissiveIntensity={hovered ? 1 : 0.4}
+          />
+        </mesh>
+
+        <mesh rotation={[Math.PI / 1.5, Math.PI / 4, 0]}>
+          <torusGeometry args={[2.5, 0.02, 8, 64]} />
+          <meshStandardMaterial
+            color="#6C47FF"
+            metalness={1}
+            roughness={0}
+            emissive="#6C47FF"
+            emissiveIntensity={hovered ? 0.8 : 0.3}
+            transparent
+            opacity={0.6}
           />
         </mesh>
       </Float>
@@ -205,7 +248,7 @@ export default function Logo3D() {
         onMouseLeave={() => setHovered(false)}
       >
         <Canvas
-          camera={{ position: [0, 0, 5], fov: 45 }}
+          camera={{ position: [0, 0, 3.5], fov: 45 }}
           gl={{ alpha: true, antialias: true, failIfMajorPerformanceCaveat: false }}
           style={{ background: "transparent" }}
         >
