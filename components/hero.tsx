@@ -52,10 +52,7 @@ export default function Hero() {
             </motion.div>
 
             <motion.div variants={fadeUp} className="flex flex-col gap-2">
-              <h1
-                className="font-display font-black text-6xl md:text-7xl lg:text-8xl tracking-tight leading-none"
-                style={{ WebkitTextStroke: "2px #F0F0F5", color: "transparent" }}
-              >
+              <h1 className="font-display text-white font-black text-6xl md:text-7xl lg:text-8xl tracking-tight leading-none">
                 Digital products
               </h1>
               <h1 className="font-display font-black text-6xl md:text-7xl lg:text-8xl leading-none tracking-tight">
@@ -109,7 +106,7 @@ export default function Hero() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className="relative w-full h-full min-h-[450px] lg:min-h-[600px]">
+            <div className="relative w-full h-full min-h-[500px] flex items-center justify-center">
               {/* Radial glow behind the 3D — softens the empty space */}
               <div
                 className="absolute inset-0 pointer-events-none"
@@ -118,7 +115,9 @@ export default function Hero() {
                     "radial-gradient(circle at center, rgba(108,71,255,0.12) 0%, rgba(0,217,255,0.05) 50%, transparent 70%)",
                 }}
               />
-              <Logo3D />
+              <div style={{ width: "100%", height: "500px" }}>
+                <Logo3D />
+              </div>
             </div>
           </motion.div>
         </div>

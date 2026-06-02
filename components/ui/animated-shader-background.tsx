@@ -55,13 +55,11 @@ const AuroraCanvas = () => {
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    // Force the canvas to fill its parent absolutely
+    // Force the canvas to fill the viewport
     const canvas = renderer.domElement;
-    canvas.style.position = "absolute";
-    canvas.style.inset = "0";
-    canvas.style.width = "100%";
-    canvas.style.height = "100%";
     canvas.style.display = "block";
+    canvas.style.width = "100vw";
+    canvas.style.height = "100vh";
     container.appendChild(canvas);
 
     const material = new THREE.ShaderMaterial({
@@ -171,10 +169,14 @@ const AuroraCanvas = () => {
     <div
       ref={containerRef}
       style={{
-        position: "absolute",
-        inset: 0,
+        position: "fixed",
+        top: 0,
+        left: 0,
         width: "100vw",
         height: "100vh",
+        zIndex: 0,
+        pointerEvents: "none",
+        opacity: 0.45,
       }}
     />
   );

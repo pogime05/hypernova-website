@@ -248,7 +248,7 @@ export default function Logo3D() {
         onMouseLeave={() => setHovered(false)}
       >
         <Canvas
-          camera={{ position: [0, 0, 3.5], fov: 45 }}
+          camera={{ position: [0, 0, 4], fov: 45 }}
           gl={{ alpha: true, antialias: true, failIfMajorPerformanceCaveat: false }}
           style={{ background: "transparent" }}
         >
