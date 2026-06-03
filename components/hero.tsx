@@ -1,8 +1,10 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform, type Variants } from "framer-motion";
 import dynamic from "next/dynamic";
 import { Badge } from "./ui/badge";
+import { MagneticButton } from "./ui/magnetic-button";
 import { ArrowRight } from "lucide-react";
 
 const Logo3D = dynamic(() => import("./logo3d"), { ssr: false });
@@ -27,14 +29,33 @@ const fadeUp: Variants = {
 };
 
 export default function Hero() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+
+  // Layered parallax — background drifts slowest, text lifts and fades,
+  // the 3D logo column moves at its own rate for depth.
+  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "40%"]);
+  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "-30%"]);
+  const textOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+  const logoY = useTransform(scrollYProgress, [0, 1], ["0%", "-15%"]);
+
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden pt-20">
+    <section
+      ref={sectionRef}
+      className="relative min-h-screen flex items-center overflow-hidden pt-20"
+    >
       {/* Background gradient */}
-      <div className="absolute inset-0 pointer-events-none">
+      <motion.div
+        className="absolute inset-0 pointer-events-none"
+        style={{ y: bgY }}
+      >
         <div className="absolute top-1/4 -left-40 w-96 h-96 bg-accent/10 rounded-full blur-[120px]" />
         <div className="absolute bottom-1/4 -right-40 w-80 h-80 bg-cyan/8 rounded-full blur-[100px]" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-px h-full bg-gradient-to-b from-transparent via-white/[0.03] to-transparent" />
-      </div>
+      </motion.div>
 
       <div className="max-w-7xl mx-auto px-6 w-full py-20">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -43,6 +64,7 @@ export default function Hero() {
             variants={stagger}
             initial="hidden"
             animate="show"
+            style={{ y: textY, opacity: textOpacity }}
             className="flex flex-col items-start gap-6"
           >
             <motion.div variants={fadeUp}>
@@ -74,22 +96,18 @@ export default function Hero() {
             </motion.p>
 
             <motion.div variants={fadeUp} className="flex flex-wrap gap-4 pt-2">
-              <motion.a
+              <MagneticButton
                 href="#work"
                 className="inline-flex items-center justify-center gap-2 bg-[#6C47FF] hover:bg-violet-500 text-white font-bold px-8 py-4 rounded-xl text-lg transition-colors"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
               >
                 See Our Work <ArrowRight size={18} />
-              </motion.a>
-              <motion.a
+              </MagneticButton>
+              <MagneticButton
                 href="#process"
                 className="inline-flex items-center justify-center border border-white/20 hover:border-white/50 text-white font-medium px-8 py-4 rounded-xl text-lg backdrop-blur-sm bg-white/5 transition-colors"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
               >
                 How We Work
-              </motion.a>
+              </MagneticButton>
             </motion.div>
 
             <motion.div variants={fadeUp} className="pt-4">
@@ -102,6 +120,7 @@ export default function Hero() {
           {/* Right — 3D Logo */}
           <motion.div
             className="flex items-center justify-center min-h-[450px] lg:min-h-[600px]"
+            style={{ y: logoY }}
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}

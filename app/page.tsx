@@ -1,4 +1,5 @@
 import dynamic from "next/dynamic";
+import SmoothScroll from "@/components/smooth-scroll";
 import Nav from "@/components/nav";
 import Hero from "@/components/hero";
 import Marquee from "@/components/marquee";
@@ -16,7 +17,7 @@ const ShaderBackground = dynamic(
 
 export default function Home() {
   return (
-    <>
+    <SmoothScroll>
       {/* Aurora shader — fixed full-screen at z-0 (opacity owned by the shader) */}
       <div
         style={{
@@ -43,6 +44,6 @@ export default function Home() {
         <Contact />
         <Footer />
       </main>
-    </>
+    </SmoothScroll>
   );
 }

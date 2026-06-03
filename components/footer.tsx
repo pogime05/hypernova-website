@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { Reveal } from "./ui/reveal";
 
 const navLinks = [
   { label: "Work", href: "#work" },
@@ -55,7 +56,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-6 pt-20 pb-10">
         <div className="grid md:grid-cols-3 gap-12 mb-12">
           {/* Brand */}
-          <div className="flex flex-col gap-4">
+          <Reveal className="flex flex-col gap-4">
             <motion.div
               className="w-fit mb-4"
               animate={{
@@ -102,10 +103,10 @@ export default function Footer() {
               </span>
               <span className="text-xs text-muted">Available for projects</span>
             </div>
-          </div>
+          </Reveal>
 
           {/* Nav */}
-          <div className="flex flex-col gap-3">
+          <Reveal delay={0.1} className="flex flex-col gap-3">
             <p className="text-xs text-muted tracking-widest uppercase font-semibold mb-1">
               Navigate
             </p>
@@ -118,10 +119,10 @@ export default function Footer() {
                 {link.label}
               </a>
             ))}
-          </div>
+          </Reveal>
 
           {/* Socials */}
-          <div className="flex flex-col gap-4">
+          <Reveal delay={0.2} className="flex flex-col gap-4">
             <p className="text-xs text-muted tracking-widest uppercase font-semibold">
               Find us
             </p>
@@ -145,7 +146,7 @@ export default function Footer() {
             >
               hello@hypernovatech.co
             </a>
-          </div>
+          </Reveal>
         </div>
 
         {/* Bottom bar */}
