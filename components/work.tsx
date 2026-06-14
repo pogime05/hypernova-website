@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
+import { SectionGlow } from "./ui/section-glow";
 
 const projects = [
   {
@@ -45,8 +46,14 @@ export default function Work() {
   const inView = useInView(ref, { once: true, amount: 0.15 });
 
   return (
-    <section id="work" className="py-32 relative border-t border-white/[0.04] bg-transparent" ref={ref}>
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="work" className="py-32 relative border-t border-white/[0.06] bg-transparent" ref={ref}>
+      <SectionGlow
+        glows={[
+          { color: "#00D9FF", opacity: 0.05, top: "-6%", right: "-4%", size: 560 },
+          { color: "#6C47FF", opacity: 0.05, bottom: "-10%", left: "-6%", size: 680 },
+        ]}
+      />
+      <div className="max-w-7xl mx-auto px-6 relative">
         {/* Header */}
         <motion.div
           className="mb-16"
@@ -115,7 +122,7 @@ function ProjectCard({
 }) {
   return (
     <motion.div
-      className="group relative rounded-2xl overflow-hidden border border-white/[0.06] bg-surface h-full cursor-pointer"
+      className="group relative rounded-2xl overflow-hidden glass-card h-full cursor-pointer"
       whileHover={{ y: -4 }}
       transition={{ duration: 0.25, ease: "easeOut" }}
     >

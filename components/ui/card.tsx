@@ -14,7 +14,7 @@ export function Card({ children, className = "", hover = true, glow = false }: C
   return (
     <motion.div
       className={`
-        bg-surface rounded-2xl border border-white/[0.06] p-6 relative overflow-hidden
+        glass-card rounded-2xl p-6 relative overflow-hidden
         ${glow ? "shadow-lg shadow-accent/10" : ""}
         ${className}
       `}

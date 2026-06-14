@@ -54,12 +54,13 @@ export default function Process() {
   return (
     <section
       id="process"
-      className="py-32 relative overflow-hidden border-t border-white/[0.04] bg-white/[0.01]"
+      className="py-32 relative overflow-hidden border-t border-white/[0.06] bg-white/[0.015]"
       ref={ref}
     >
       {/* Background decoration */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/4 w-64 h-64 bg-accent/5 rounded-full blur-[100px]" />
+        <div className="absolute top-1/3 left-1/4 w-64 h-64 bg-accent/[0.06] rounded-full blur-[110px]" />
+        <div className="absolute bottom-1/4 right-1/5 w-72 h-72 bg-cyan/[0.05] rounded-full blur-[120px]" />
       </div>
 
       <div className="max-w-7xl mx-auto px-6" ref={sectionRef}>

@@ -39,9 +39,10 @@ export default function Testimonials() {
   const inView = useInView(ref, { once: true, amount: 0.2 });
 
   return (
-    <section className="py-32 relative overflow-hidden border-t border-white/[0.04] bg-transparent" ref={ref}>
+    <section className="py-32 relative overflow-hidden border-t border-white/[0.06] bg-transparent" ref={ref}>
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute bottom-0 right-1/4 w-72 h-72 bg-cyan/5 rounded-full blur-[100px]" />
+        <div className="absolute bottom-0 right-1/4 w-72 h-72 bg-cyan/[0.06] rounded-full blur-[110px]" />
+        <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-accent/[0.05] rounded-full blur-[120px]" />
       </div>
 
       <div className="max-w-7xl mx-auto px-6">
@@ -87,7 +88,7 @@ function TestimonialCard({
 }) {
   return (
     <motion.div
-      className="bg-surface rounded-2xl border border-white/[0.06] p-6 h-full flex flex-col gap-5 relative overflow-hidden group"
+      className="glass-card rounded-2xl p-6 h-full flex flex-col gap-5 relative overflow-hidden group"
       whileHover={{
         borderColor: "rgba(108, 71, 255, 0.25)",
         y: -4,

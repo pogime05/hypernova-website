@@ -1,49 +1,62 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { CreditCard, LayoutDashboard, Globe, Smartphone } from "lucide-react";
-import { Card } from "./ui/card";
+import { CreditCard, LayoutDashboard, Sparkles, Smartphone } from "lucide-react";
+import { SectionGlow } from "./ui/section-glow";
+import {
+  DigitalCardVisual,
+  DashboardVisual,
+  AIChatVisual,
+  MobileVisual,
+} from "./service-visuals";
 
 const services = [
   {
     icon: CreditCard,
     title: "Digital Cards",
     description:
-      "Smart, interactive business cards with NFC & QR. Share everything in a tap — your portfolio, socials, contact info. The Linktree-killer your brand deserves.",
-    tag: "NFC · QR · Analytics",
+      "Smart NFC + QR business cards that share everything in a tap — profile, links, contact, and analytics. The Linktree-killer your brand deserves.",
+    tags: ["NFC", "QR", "Analytics"],
     color: "#6C47FF",
+    span: "lg:col-span-2",
+    Visual: DigitalCardVisual,
   },
   {
     icon: LayoutDashboard,
     title: "Web Apps",
     description:
-      "Custom dashboards, SaaS tools, internal platforms. Full-stack, production-grade, and built to scale. We own the complexity so you don't have to.",
-    tag: "Full Stack · SaaS · APIs",
+      "Dashboards, SaaS tools, and internal platforms. Full-stack, production-grade, and built to scale — we own the complexity so you don't have to.",
+    tags: ["Full Stack", "SaaS", "APIs"],
     color: "#00D9FF",
+    span: "lg:col-span-4",
+    Visual: DashboardVisual,
   },
   {
-    icon: Globe,
-    title: "Marketing Sites",
+    icon: Sparkles,
+    title: "AI Services",
     description:
-      "Conversion-optimized, fast, and genuinely beautiful. Not a Webflow template with your logo swapped in — a site that earns its place.",
-    tag: "Next.js · Performance · SEO",
+      "Chatbots, copilots, and AI workflows wired straight into your product — RAG, automation, and smart search that actually ship.",
+    tags: ["LLMs", "RAG", "Automation"],
     color: "#A855F7",
+    span: "lg:col-span-3",
+    Visual: AIChatVisual,
   },
   {
     icon: Smartphone,
     title: "Mobile Apps",
     description:
-      "React Native apps for iOS & Android, shipped without the 6-month runway. Cross-platform doesn't mean compromised — we build native-quality UX.",
-    tag: "React Native · iOS · Android",
+      "Native-quality iOS & Android apps with React Native — cross-platform without the compromise, shipped without the six-month runway.",
+    tags: ["React Native", "iOS", "Android"],
     color: "#10B981",
+    span: "lg:col-span-3",
+    Visual: MobileVisual,
   },
 ];
 
 const containerVariants = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.1 } },
+  show: { transition: { staggerChildren: 0.12 } },
 };
 
 const itemVariants = {
@@ -53,13 +66,22 @@ const itemVariants = {
 
 export default function Services() {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, amount: 0.2 });
+  const inView = useInView(ref, { once: true, amount: 0.15 });
 
   return (
-    <section id="services" className="py-32 relative border-t border-white/[0.04] bg-white/[0.01]" ref={ref}>
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-32 bg-gradient-to-b from-white/[0.06] to-transparent" />
+    <section
+      id="services"
+      className="py-32 relative border-t border-white/[0.06] bg-white/[0.015]"
+      ref={ref}
+    >
+      <SectionGlow
+        glows={[
+          { color: "#6C47FF", opacity: 0.06, top: "-8%", left: "-6%", size: 640 },
+          { color: "#00D9FF", opacity: 0.05, bottom: "-12%", right: "-6%", size: 680 },
+        ]}
+      />
 
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-6 relative">
         {/* Header */}
         <motion.div
           className="mb-16"
@@ -75,70 +97,93 @@ export default function Services() {
               What we build
             </h2>
             <p className="text-muted text-lg max-w-sm">
-              Four product types. One studio. No hand-offs, no guesswork.
+              Four product types. One studio. No hand-offs, no guesswork — live
+              previews, not promises.
             </p>
           </div>
         </motion.div>
 
-        {/* Grid */}
+        {/* Bento grid */}
         <motion.div
-          className="grid md:grid-cols-2 gap-5"
+          className="grid gap-4 sm:grid-cols-2 lg:grid-cols-6"
           variants={containerVariants}
           initial="hidden"
           animate={inView ? "show" : "hidden"}
         >
-          {services.map((service, i) => {
+          {services.map((service) => {
             const Icon = service.icon;
+            const Visual = service.Visual;
             return (
-              <motion.div key={i} variants={itemVariants}>
-                <Card className="h-full group">
-                  {/* Top row */}
-                  <div className="flex items-start justify-between mb-6">
+              <motion.div
+                key={service.title}
+                variants={itemVariants}
+                className={service.span}
+              >
+                <motion.div
+                  className="glass-card rounded-2xl p-6 h-full flex flex-col relative overflow-hidden group"
+                  whileHover={{
+                    y: -4,
+                    borderColor: `${service.color}55`,
+                    boxShadow: `0 0 34px ${service.color}1a, 0 24px 60px -20px rgba(0,0,0,0.7)`,
+                  }}
+                  transition={{ duration: 0.25, ease: "easeOut" }}
+                >
+                  {/* per-card corner glow */}
+                  <div
+                    className="absolute -top-20 -right-16 w-52 h-52 rounded-full pointer-events-none opacity-[0.12]"
+                    style={{
+                      background: `radial-gradient(circle, ${service.color}, transparent 70%)`,
+                    }}
+                  />
+
+                  {/* header */}
+                  <div className="relative flex items-center justify-between mb-4">
                     <div
-                      className="w-12 h-12 rounded-xl flex items-center justify-center"
-                      style={{ background: `${service.color}18`, border: `1px solid ${service.color}30` }}
-                    >
-                      <Icon size={22} style={{ color: service.color }} />
-                    </div>
-                    <span
-                      className="text-xs font-mono px-2 py-1 rounded-md"
+                      className="w-11 h-11 rounded-xl flex items-center justify-center"
                       style={{
-                        background: `${service.color}10`,
-                        color: service.color,
-                        border: `1px solid ${service.color}20`,
+                        background: `${service.color}18`,
+                        border: `1px solid ${service.color}30`,
                       }}
                     >
-                      {service.tag.split(" · ")[0]}
-                    </span>
+                      <Icon size={20} style={{ color: service.color }} />
+                    </div>
+                    <div className="flex flex-wrap gap-1.5 justify-end">
+                      {service.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="text-[11px] px-2 py-0.5 rounded-full"
+                          style={{
+                            background: `${service.color}10`,
+                            color: `${service.color}CC`,
+                            border: `1px solid ${service.color}20`,
+                          }}
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
                   </div>
 
-                  <h3 className="font-display font-bold text-2xl text-primary mb-3 group-hover:text-accent transition-colors">
+                  <h3 className="relative font-display font-bold text-2xl text-primary mb-2 group-hover:text-white transition-colors">
                     {service.title}
                   </h3>
-                  <p className="text-muted leading-relaxed">{service.description}</p>
+                  <p className="relative text-muted text-sm leading-relaxed">
+                    {service.description}
+                  </p>
 
-                  <div className="mt-6 flex flex-wrap gap-2">
-                    {service.tag.split(" · ").map((tag) => (
-                      <span
-                        key={tag}
-                        className="text-xs px-2.5 py-1 rounded-full"
-                        style={{
-                          background: `${service.color}08`,
-                          color: `${service.color}CC`,
-                          border: `1px solid ${service.color}15`,
-                        }}
-                      >
-                        {tag}
-                      </span>
-                    ))}
+                  {/* live visual */}
+                  <div className="relative mt-auto pt-6">
+                    <Visual />
                   </div>
 
-                  {/* Subtle accent line on hover */}
+                  {/* bottom accent line on hover */}
                   <div
                     className="absolute bottom-0 left-0 h-px w-0 group-hover:w-full transition-all duration-500 rounded-b-2xl"
-                    style={{ background: `linear-gradient(90deg, ${service.color}, transparent)` }}
+                    style={{
+                      background: `linear-gradient(90deg, ${service.color}, transparent)`,
+                    }}
                   />
-                </Card>
+                </motion.div>
               </motion.div>
             );
           })}

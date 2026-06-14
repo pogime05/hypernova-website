@@ -29,7 +29,7 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="py-32 relative overflow-hidden border-t border-white/[0.04] bg-white/[0.01]" ref={ref}>
+    <section id="contact" className="py-32 relative overflow-hidden border-t border-white/[0.06] bg-white/[0.015]" ref={ref}>
       {/* Accent gradient border top */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent to-transparent" />
 
@@ -82,7 +82,7 @@ export default function Contact() {
           ) : (
             <form
               onSubmit={handleSubmit}
-              className="bg-surface border border-white/[0.06] rounded-2xl p-8 md:p-10 flex flex-col gap-5"
+              className="glass-card rounded-2xl p-8 md:p-10 flex flex-col gap-5"
             >
               <div className="grid md:grid-cols-2 gap-5">
                 <div className="flex flex-col gap-2">

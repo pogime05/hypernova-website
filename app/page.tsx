@@ -4,6 +4,7 @@ import Nav from "@/components/nav";
 import Hero from "@/components/hero";
 import Marquee from "@/components/marquee";
 import Services from "@/components/services";
+import AIShowcase from "@/components/ai-showcase";
 import Work from "@/components/work";
 import Process from "@/components/process";
 import Testimonials from "@/components/testimonials";
@@ -38,6 +39,7 @@ export default function Home() {
         <Hero />
         <Marquee />
         <Services />
+        <AIShowcase />
         <Work />
         <Process />
         <Testimonials />

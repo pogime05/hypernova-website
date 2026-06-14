@@ -9,6 +9,7 @@ import { Button } from "./ui/button";
 const navLinks = [
   { label: "Work", href: "#work" },
   { label: "Services", href: "#services" },
+  { label: "AI", href: "#ai" },
   { label: "Process", href: "#process" },
   { label: "Contact", href: "#contact" },
 ];
@@ -125,7 +126,7 @@ export default function Nav() {
               onClick={() => setMenuOpen(false)}
             />
             <motion.div
-              className="absolute top-20 left-4 right-4 bg-surface border border-white/[0.08] rounded-2xl p-6 flex flex-col gap-1"
+              className="absolute top-20 left-4 right-4 glass-card rounded-2xl p-6 flex flex-col gap-1"
               initial={{ opacity: 0, y: -20, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -20, scale: 0.95 }}
