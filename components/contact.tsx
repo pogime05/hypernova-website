@@ -8,24 +8,48 @@ import { Button } from "./ui/button";
 const projectTypes = [
   "Digital Business Card",
   "Web App / SaaS",
-  "Marketing Site",
+  "AI Services",
   "Mobile App",
   "Something else",
 ];
+
+// TODO: add Web3Forms key — create one free at https://web3forms.com (routes to pogime05@gmail.com)
+const WEB3FORMS_ACCESS_KEY = "YOUR_WEB3FORMS_ACCESS_KEY";
 
 export default function Contact() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, amount: 0.2 });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setLoading(true);
-    setTimeout(() => {
+    setError(null);
+
+    const formData = new FormData(e.currentTarget);
+    formData.append("access_key", WEB3FORMS_ACCESS_KEY);
+    formData.append("subject", "New project inquiry — HyperNova Technologies");
+    formData.append("from_name", "HyperNova Technologies Website");
+
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: formData,
+      });
+      const data = await res.json();
+      if (data.success) {
+        setSubmitted(true);
+      } else {
+        setError(data.message || "Something went wrong. Please try again.");
+      }
+    } catch {
+      setError("Network error — please try again, or email us directly.");
+    } finally {
       setLoading(false);
-      setSubmitted(true);
-    }, 1200);
+    }
   }
 
   return (
@@ -84,6 +108,16 @@ export default function Contact() {
               onSubmit={handleSubmit}
               className="glass-card rounded-2xl p-8 md:p-10 flex flex-col gap-5"
             >
+              {/* honeypot — spam bots fill this; humans never see it */}
+              <input
+                type="checkbox"
+                name="botcheck"
+                className="hidden"
+                style={{ display: "none" }}
+                tabIndex={-1}
+                autoComplete="off"
+              />
+
               <div className="grid md:grid-cols-2 gap-5">
                 <div className="flex flex-col gap-2">
                   <label className="text-xs text-muted font-medium tracking-wide uppercase">
@@ -91,6 +125,7 @@ export default function Contact() {
                   </label>
                   <input
                     type="text"
+                    name="name"
                     required
                     placeholder="Alex Johnson"
                     className="bg-white/[0.03] border border-white/[0.08] rounded-xl px-4 py-3 text-primary placeholder-muted/50 text-sm outline-none focus:border-accent/50 focus:bg-accent/[0.03] transition-all"
@@ -102,6 +137,7 @@ export default function Contact() {
                   </label>
                   <input
                     type="email"
+                    name="email"
                     required
                     placeholder="alex@company.co"
                     className="bg-white/[0.03] border border-white/[0.08] rounded-xl px-4 py-3 text-primary placeholder-muted/50 text-sm outline-none focus:border-accent/50 focus:bg-accent/[0.03] transition-all"
@@ -115,7 +151,9 @@ export default function Contact() {
                 </label>
                 <div className="relative">
                   <select
+                    name="project_type"
                     required
+                    defaultValue=""
                     className="w-full bg-white/[0.03] border border-white/[0.08] rounded-xl px-4 py-3 text-primary text-sm outline-none focus:border-accent/50 appearance-none cursor-pointer"
                   >
                     <option value="" className="bg-surface">
@@ -139,12 +177,19 @@ export default function Contact() {
                   Tell us about your project
                 </label>
                 <textarea
+                  name="message"
                   required
                   rows={5}
                   placeholder="What are you building? What's the timeline? Any constraints we should know about?"
                   className="bg-white/[0.03] border border-white/[0.08] rounded-xl px-4 py-3 text-primary placeholder-muted/50 text-sm outline-none focus:border-accent/50 focus:bg-accent/[0.03] transition-all resize-none"
                 />
               </div>
+
+              {error && (
+                <p className="text-sm text-red-400 bg-red-500/10 border border-red-500/25 rounded-lg px-4 py-3">
+                  {error}
+                </p>
+              )}
 
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-2">
                 <p className="text-xs text-muted">

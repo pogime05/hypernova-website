@@ -17,6 +17,11 @@ export interface Glow {
   bottom?: string;
 }
 
+/** 1px violet→transparent divider at the top edge of a section. */
+export function SectionDivider() {
+  return <div className="section-divider" aria-hidden="true" />;
+}
+
 export function SectionGlow({ glows }: { glows: Glow[] }) {
   return (
     <div

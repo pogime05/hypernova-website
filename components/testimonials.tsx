@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Quote } from "lucide-react";
+import { SectionDivider } from "./ui/section-glow";
 
 const testimonials = [
   {
@@ -40,6 +41,7 @@ export default function Testimonials() {
 
   return (
     <section className="py-32 relative overflow-hidden border-t border-white/[0.06] bg-transparent" ref={ref}>
+      <SectionDivider />
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute bottom-0 right-1/4 w-72 h-72 bg-cyan/[0.06] rounded-full blur-[110px]" />
         <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-accent/[0.05] rounded-full blur-[120px]" />

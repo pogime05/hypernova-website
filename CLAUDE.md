@@ -14,7 +14,7 @@ Live: https://hypernova-website.vercel.app · Repo: github.com/pogime05/hypernov
 - **Palette:**
   - bg `#0A0A0F` · surface `#13131A` · elevated `#1A1A24` · border `rgba(255,255,255,0.06)`
   - accent violet `#6C47FF` · accent cyan `#00D9FF`
-  - text `#F0F0F5` · muted `#6B6B7B`
+  - text `#F0F0F5` · muted `#9B9BAD` (raised from `#6B6B7B` for WCAG AA on dark)
 - Dark theme but **always layered** — surfaces, accent glows, light pockets. Never flat-black void.
 - Tagline: "We build digital things that actually work."
 

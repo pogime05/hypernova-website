@@ -108,19 +108,20 @@ body::before {
     border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   }
 
-  /* Card glass — translucent elevated surface, blur, hairline border + soft
-     drop. Lets the aurora bleed through so cards read as glass, not flat black. */
+  /* Card glass — elevated surface (#1A1A24 → #13131A), blur, hairline border,
+     inset top highlight + soft drop. Opaque enough to read as a lifted panel,
+     not a flat-black void, while still letting a hint of aurora through. */
   .glass-card {
     background: linear-gradient(
       180deg,
-      rgba(26, 26, 36, 0.66) 0%,
-      rgba(19, 19, 26, 0.66) 100%
+      rgba(26, 26, 36, 0.86) 0%,
+      rgba(19, 19, 26, 0.82) 100%
     );
     backdrop-filter: blur(16px) saturate(130%);
     -webkit-backdrop-filter: blur(16px) saturate(130%);
     border: 1px solid rgba(255, 255, 255, 0.06);
     box-shadow:
-      0 1px 0 rgba(255, 255, 255, 0.04) inset,
+      inset 0 1px 0 rgba(255, 255, 255, 0.04),
       0 20px 50px -20px rgba(0, 0, 0, 0.7);
   }
 
@@ -140,5 +141,29 @@ body::before {
       rgba(255, 255, 255, 0.08),
       transparent
     );
+  }
+
+  /* Centered violet→transparent 1px divider drawn at the top edge of a section. */
+  .section-divider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(108, 71, 255, 0.45),
+      transparent
+    );
+    pointer-events: none;
+  }
+
+  /* Faint blueprint grid — used to give dark section halves texture. */
+  .grid-bg {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
   }
 }

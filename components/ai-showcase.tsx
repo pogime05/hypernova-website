@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { Sparkles, Send, Bot, Zap, Database, Wrench } from "lucide-react";
-import { SectionGlow } from "./ui/section-glow";
+import { SectionGlow, SectionDivider } from "./ui/section-glow";
 
 /* Scripted, client-only "AI in action" demo. No API calls, no external deps
    beyond framer-motion. Auto-types a prompt → simulates a streaming answer →
@@ -117,11 +117,38 @@ export default function AIShowcase() {
   return (
     <section
       id="ai"
-      className="py-32 relative border-t border-white/[0.06] bg-transparent overflow-hidden"
+      className="py-32 relative border-t border-white/[0.06] overflow-hidden"
+      style={{
+        background: "linear-gradient(180deg, #0E0E16 0%, #0A0A0F 100%)",
+      }}
     >
+      <SectionDivider />
+      {/* faint blueprint grid, strongest on the left, fading right — fills the
+          dead black half behind the copy with texture. */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 grid-bg pointer-events-none opacity-[0.5]"
+        style={{
+          maskImage:
+            "radial-gradient(120% 90% at 8% 40%, rgba(0,0,0,0.9), transparent 60%)",
+          WebkitMaskImage:
+            "radial-gradient(120% 90% at 8% 40%, rgba(0,0,0,0.9), transparent 60%)",
+        }}
+      />
+      {/* slow-breathing violet radial anchored to the left column */}
+      <motion.div
+        aria-hidden="true"
+        className="absolute top-1/2 left-[12%] -translate-x-1/2 -translate-y-1/2 w-[520px] h-[520px] rounded-full pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(108,71,255,0.10), transparent 70%)",
+        }}
+        animate={{ opacity: [0.6, 1, 0.6], scale: [0.95, 1.05, 0.95] }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+      />
       <SectionGlow
         glows={[
-          { color: "#A855F7", opacity: 0.07, top: "-6%", left: "30%", size: 720 },
+          { color: "#A855F7", opacity: 0.06, top: "-6%", left: "40%", size: 680 },
           { color: "#00D9FF", opacity: 0.06, bottom: "-12%", right: "-4%", size: 620 },
         ]}
       />

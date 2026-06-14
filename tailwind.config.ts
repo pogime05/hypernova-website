@@ -17,7 +17,7 @@ const config: Config = {
         accent: "#6C47FF",
         cyan: "#00D9FF",
         primary: "#F0F0F5",
-        muted: "#6B6B7B",
+        muted: "#9B9BAD", // raised from #6B6B7B for WCAG AA on dark bg
       },
       fontFamily: {
         sans: ["var(--font-inter)", "sans-serif"],

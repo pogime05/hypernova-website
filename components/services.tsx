@@ -3,7 +3,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { CreditCard, LayoutDashboard, Sparkles, Smartphone } from "lucide-react";
-import { SectionGlow } from "./ui/section-glow";
+import { SectionGlow, SectionDivider } from "./ui/section-glow";
 import {
   DigitalCardVisual,
   DashboardVisual,
@@ -74,9 +74,19 @@ export default function Services() {
       className="py-32 relative border-t border-white/[0.06] bg-white/[0.015]"
       ref={ref}
     >
+      <SectionDivider />
+      {/* top-center violet glow for rhythm */}
+      <div
+        aria-hidden="true"
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-[760px] h-[420px] pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse at top, rgba(108,71,255,0.06), transparent 70%)",
+        }}
+      />
       <SectionGlow
         glows={[
-          { color: "#6C47FF", opacity: 0.06, top: "-8%", left: "-6%", size: 640 },
+          { color: "#6C47FF", opacity: 0.05, top: "10%", left: "-8%", size: 560 },
           { color: "#00D9FF", opacity: 0.05, bottom: "-12%", right: "-6%", size: 680 },
         ]}
       />

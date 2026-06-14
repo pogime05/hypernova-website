@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
-import { SectionGlow } from "./ui/section-glow";
+import { SectionGlow, SectionDivider } from "./ui/section-glow";
 
 const projects = [
   {
@@ -46,7 +46,13 @@ export default function Work() {
   const inView = useInView(ref, { once: true, amount: 0.15 });
 
   return (
-    <section id="work" className="py-32 relative border-t border-white/[0.06] bg-transparent" ref={ref}>
+    <section
+      id="work"
+      className="py-32 relative border-t border-white/[0.06] overflow-hidden"
+      style={{ background: "linear-gradient(180deg, #0E0E16 0%, #0A0A0F 100%)" }}
+      ref={ref}
+    >
+      <SectionDivider />
       <SectionGlow
         glows={[
           { color: "#00D9FF", opacity: 0.05, top: "-6%", right: "-4%", size: 560 },
@@ -123,7 +129,12 @@ function ProjectCard({
   return (
     <motion.div
       className="group relative rounded-2xl overflow-hidden glass-card h-full cursor-pointer"
-      whileHover={{ y: -4 }}
+      whileHover={{
+        y: -4,
+        borderColor: "rgba(108,71,255,0.45)",
+        boxShadow:
+          "0 0 34px rgba(108,71,255,0.16), 0 24px 60px -20px rgba(0,0,0,0.7)",
+      }}
       transition={{ duration: 0.25, ease: "easeOut" }}
     >
       {/* Gradient preview */}
