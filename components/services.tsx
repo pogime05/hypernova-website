@@ -15,6 +15,7 @@ import {
 
 const services = [
   {
+    id: "digital-cards",
     icon: CreditCard,
     title: "Digital Cards",
     description:
@@ -25,6 +26,7 @@ const services = [
     Visual: DigitalCardVisual,
   },
   {
+    id: "web-apps",
     icon: LayoutDashboard,
     title: "Web Apps",
     description:
@@ -35,6 +37,7 @@ const services = [
     Visual: DashboardVisual,
   },
   {
+    id: "ai-services",
     icon: Sparkles,
     title: "AI Services",
     description:
@@ -45,6 +48,7 @@ const services = [
     Visual: AIChatVisual,
   },
   {
+    id: "mobile-apps",
     icon: Smartphone,
     title: "Mobile Apps",
     description:
@@ -141,8 +145,10 @@ export default function Services({ preview = false }: { preview?: boolean }) {
             return (
               <motion.div
                 key={service.title}
+                id={service.id}
                 variants={itemVariants}
                 className={service.span}
+                style={{ scrollMarginTop: "100px" }}
               >
                 <TiltCard className="h-full" glareColor={service.color}>
                 <motion.div

@@ -33,16 +33,16 @@ type NavItem = {
 // Mega-menu contents. Every sub-item routes to its parent page for this pass
 // (deep-linking to filtered/anchored sections comes in a later content pass).
 const workItems: SubItem[] = [
-  { label: "Websites", href: "/work", desc: "Marketing sites & landing pages", icon: Globe, color: "#A855F7" },
-  { label: "Apps", href: "/work", desc: "Web apps, dashboards & SaaS", icon: LayoutDashboard, color: "#00D9FF" },
-  { label: "Digital Cards", href: "/work", desc: "NFC + QR smart cards", icon: CreditCard, color: "#6C47FF" },
+  { label: "Websites", href: "/work?category=website", desc: "Marketing sites & landing pages", icon: Globe, color: "#A855F7" },
+  { label: "Apps", href: "/work?category=app", desc: "Web apps, dashboards & SaaS", icon: LayoutDashboard, color: "#00D9FF" },
+  { label: "Digital Cards", href: "/work?category=cards", desc: "NFC + QR smart cards", icon: CreditCard, color: "#6C47FF" },
 ];
 
 const servicesItems: SubItem[] = [
-  { label: "Digital Cards", href: "/services", desc: "Tap-to-share smart cards", icon: CreditCard, color: "#6C47FF" },
-  { label: "Web Apps", href: "/services", desc: "Full-stack platforms & tools", icon: LayoutDashboard, color: "#00D9FF" },
-  { label: "AI Services", href: "/services", desc: "Chatbots, copilots & RAG", icon: Sparkles, color: "#A855F7" },
-  { label: "Mobile Apps", href: "/services", desc: "iOS & Android, cross-platform", icon: Smartphone, color: "#10B981" },
+  { label: "Digital Cards", href: "/services#digital-cards", desc: "Tap-to-share smart cards", icon: CreditCard, color: "#6C47FF" },
+  { label: "Web Apps", href: "/services#web-apps", desc: "Full-stack platforms & tools", icon: LayoutDashboard, color: "#00D9FF" },
+  { label: "AI Services", href: "/services#ai-services", desc: "Chatbots, copilots & RAG", icon: Sparkles, color: "#A855F7" },
+  { label: "Mobile Apps", href: "/services#mobile-apps", desc: "iOS & Android, cross-platform", icon: Smartphone, color: "#10B981" },
 ];
 
 const navItems: NavItem[] = [
@@ -334,6 +334,7 @@ function MegaItem({
                     <Link
                       href={sub.href}
                       role="menuitem"
+                      onClick={() => setOpen(false)}
                       className="group/mega flex items-start gap-3 rounded-xl p-3 hover:bg-white/[0.05] transition-colors"
                     >
                       <span

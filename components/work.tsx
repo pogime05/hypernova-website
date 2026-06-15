@@ -7,45 +7,130 @@ import Link from "next/link";
 import { SectionGlow, SectionDivider } from "./ui/section-glow";
 import { TiltCard } from "./ui/tilt-card";
 
-const projects = [
+type Category = "website" | "app" | "cards";
+
+type Project = {
+  name: string;
+  category: Category;
+  categoryLabel: string;
+  description: string;
+  gradient: string;
+  accent: string;
+  stack: string[];
+  url?: string;
+  samples?: { name: string; url: string }[];
+};
+
+// Real, shipped work — every entry links out to the live project.
+const projects: Project[] = [
   {
-    name: "NovaDeck",
-    category: "Web App",
+    name: "FSI Freight Solutions",
+    category: "website",
+    categoryLabel: "Website",
     description:
-      "A digital business card platform that turns a tap into a complete brand experience. Custom profiles, NFC support, QR generation, and analytics — all in one link.",
+      "Freight logistics + carrier compliance — full-truckload/LTL coordination, 60+ driver-training modules, MTO/DOT compliance.",
     gradient: "from-[#6C47FF] via-[#4A2FCC] to-[#0A0A1A]",
     accent: "#6C47FF",
-    year: "2024",
-    stack: ["Next.js", "Prisma", "Stripe"],
-    size: "large",
+    stack: ["HTML", "CSS", "JS", "Vercel"],
+    url: "https://fsi-website-pi.vercel.app/",
   },
   {
-    name: "ShiftHR",
-    category: "SaaS",
+    name: "Atlas Group Partners",
+    category: "website",
+    categoryLabel: "Website",
     description:
-      "An HR dashboard for remote-first teams — time tracking, leave management, performance reviews, and org charts. Built for teams of 10 to 500.",
+      "Driver screening & background checks — CVOR reports, driver abstracts, 24-hour turnaround. MTO-authorized, PIPEDA-compliant.",
     gradient: "from-[#00D9FF] via-[#0080AA] to-[#0A0A1A]",
     accent: "#00D9FF",
-    year: "2024",
-    stack: ["React", "Node.js", "PostgreSQL"],
-    size: "small",
+    stack: ["Web", "Vercel"],
+    url: "https://atlasgpi.com/",
   },
   {
-    name: "Bloom Studio",
-    category: "Website",
+    name: "Asees Visa Services",
+    category: "website",
+    categoryLabel: "Website",
     description:
-      "Marketing site for a NYC-based creative agency. Zero templates. Custom scroll animations, a bespoke color system, and a Lighthouse score above 95.",
+      "Immigration & visa services site with clear service breakdowns and an inquiry flow.",
     gradient: "from-[#A855F7] via-[#7C3AED] to-[#0A0A1A]",
     accent: "#A855F7",
-    year: "2023",
-    stack: ["Next.js", "GSAP", "Sanity"],
-    size: "small",
+    stack: ["Next.js", "Vercel"],
+    url: "https://asees-visa-services.vercel.app/",
+  },
+  {
+    name: "DriveProctor",
+    category: "app",
+    categoryLabel: "Web App",
+    description:
+      "A digital road-test app for trucking examiners — structured test administration and scoring, built for the field.",
+    gradient: "from-[#00D9FF] via-[#0E7490] to-[#0A0A1A]",
+    accent: "#00D9FF",
+    stack: ["Web App", "Cloudflare Pages"],
+    url: "https://driveproctor.pages.dev/",
+  },
+  {
+    name: "Sunny Meadow Medical Clinic",
+    category: "app",
+    categoryLabel: "Web App",
+    description:
+      "Appointment booking with a digital buzzer — book, check in, and skip the waiting-room wait.",
+    gradient: "from-[#10B981] via-[#0E7C5A] to-[#0A0A1A]",
+    accent: "#10B981",
+    stack: ["Next.js", "Vercel"],
+    url: "https://sunny-meadow-app.vercel.app/",
+  },
+  {
+    name: "Digital Business Cards",
+    category: "cards",
+    categoryLabel: "Digital Cards",
+    description:
+      "Smart NFC + QR business cards for multiple clients — tap-to-share profiles, links, contact.",
+    gradient: "from-[#6C47FF] via-[#A855F7] to-[#0A0A1A]",
+    accent: "#6C47FF",
+    stack: ["HTML", "CSS", "Cloudflare Pages"],
+    samples: [
+      { name: "Prime Homez", url: "https://prime-homez-card.pages.dev/" },
+      { name: "RFMI Bedi", url: "https://rfmi-bedi-card.pages.dev/" },
+      { name: "Sanjeev", url: "https://sanjeev-business-whatsapp.pages.dev/" },
+    ],
   },
 ];
 
-export default function Work({ preview = false }: { preview?: boolean }) {
+const alsoDelivered = [
+  "FleetSafety Dashboard",
+  "SplitWatt",
+  "Analytics dashboards",
+  "Pitch presentations",
+  "Private personal domains",
+];
+
+const filters: { label: string; value: Category | "all" }[] = [
+  { label: "All", value: "all" },
+  { label: "Websites", value: "website" },
+  { label: "Apps", value: "app" },
+  { label: "Digital Cards", value: "cards" },
+];
+
+export default function Work({
+  preview = false,
+  category = null,
+}: {
+  preview?: boolean;
+  category?: string | null;
+}) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, amount: 0.15 });
+
+  const activeCategory: Category | "all" =
+    category === "website" || category === "app" || category === "cards"
+      ? category
+      : "all";
+
+  // Home shows a 3-project preview; the full page filters by category.
+  const visible = preview
+    ? projects.slice(0, 3)
+    : activeCategory === "all"
+      ? projects
+      : projects.filter((p) => p.category === activeCategory);
 
   return (
     <section
@@ -64,7 +149,7 @@ export default function Work({ preview = false }: { preview?: boolean }) {
       <div className="max-w-7xl mx-auto px-6 relative">
         {/* Header */}
         <motion.div
-          className="mb-16"
+          className="mb-10"
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
@@ -76,152 +161,207 @@ export default function Work({ preview = false }: { preview?: boolean }) {
             <h2 className="font-display font-extrabold text-4xl md:text-5xl lg:text-6xl text-primary leading-tight">
               Work that speaks
             </h2>
-            <Link
-              href={preview ? "/work" : "/contact"}
-              className="text-sm text-muted hover:text-accent transition-colors flex items-center gap-1 group"
-            >
-              {preview ? "See all work" : "Start a project"}{" "}
-              <ArrowUpRight
-                size={14}
-                className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
-              />
-            </Link>
+            {preview ? (
+              <Link
+                href="/work"
+                className="text-sm text-muted hover:text-accent transition-colors flex items-center gap-1 group"
+              >
+                See all work{" "}
+                <ArrowUpRight
+                  size={14}
+                  className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
+                />
+              </Link>
+            ) : (
+              <p className="text-sm text-muted max-w-xs">
+                Real, shipped work — tap any project to see it live.
+              </p>
+            )}
           </div>
         </motion.div>
 
-        {/* Bento grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          {/* Large card */}
+        {/* Filter pills (full page only) */}
+        {!preview && (
           <motion.div
-            className="md:col-span-2"
-            initial={{ opacity: 0, y: 30 }}
+            className="flex flex-wrap gap-2.5 mb-10"
+            initial={{ opacity: 0, y: 10 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
           >
-            <ProjectCard project={projects[0]} large />
+            {filters.map((f) => {
+              const active = activeCategory === f.value;
+              return (
+                <Link
+                  key={f.value}
+                  href={f.value === "all" ? "/work" : `/work?category=${f.value}`}
+                  scroll={false}
+                  className={`text-sm font-medium px-4 py-2 rounded-full border transition-all ${
+                    active
+                      ? "bg-accent text-white border-accent shadow-lg shadow-accent/20"
+                      : "text-muted border-white/[0.1] hover:text-white hover:border-white/25 bg-white/[0.02]"
+                  }`}
+                >
+                  {f.label}
+                </Link>
+              );
+            })}
           </motion.div>
+        )}
 
-          {/* Small cards stacked */}
-          <div className="flex flex-col gap-5">
-            {projects.slice(1).map((project, i) => (
-              <motion.div
-                key={project.name}
-                initial={{ opacity: 0, y: 30 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: 0.15 + i * 0.1 }}
-                className="flex-1"
-              >
-                <ProjectCard project={project} />
-              </motion.div>
-            ))}
-          </div>
+        {/* Grid — uniform so category filtering never leaves holes */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 [grid-auto-flow:dense]">
+          {visible.map((project, i) => (
+            <motion.div
+              key={project.name}
+              initial={{ opacity: 0, y: 30 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.1 + i * 0.07 }}
+            >
+              <ProjectCard project={project} />
+            </motion.div>
+          ))}
         </div>
+
+        {/* Also delivered + disclaimer (full page only) */}
+        {!preview && (
+          <motion.div
+            className="mt-14"
+            initial={{ opacity: 0, y: 16 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            <p className="text-xs text-muted tracking-widest uppercase font-semibold mb-4">
+              Also delivered
+            </p>
+            <div className="flex flex-wrap gap-2.5">
+              {alsoDelivered.map((item) => (
+                <span
+                  key={item}
+                  className="text-sm text-muted/80 px-3.5 py-1.5 rounded-full border border-white/[0.08] bg-white/[0.02]"
+                >
+                  {item}
+                </span>
+              ))}
+            </div>
+          </motion.div>
+        )}
       </div>
     </section>
   );
 }
 
-function ProjectCard({
-  project,
-  large = false,
-}: {
-  project: (typeof projects)[0];
-  large?: boolean;
-}) {
+function ProjectCard({ project }: { project: Project }) {
+  const isCards = !!project.samples;
   return (
     <TiltCard className="h-full" glareColor={project.accent}>
-    <motion.div
-      className="group relative rounded-2xl overflow-hidden glass-card h-full cursor-pointer"
-      whileHover={{
-        y: -4,
-        borderColor: "rgba(108,71,255,0.45)",
-        boxShadow:
-          "0 0 34px rgba(108,71,255,0.16), 0 24px 60px -20px rgba(0,0,0,0.7)",
-      }}
-      transition={{ duration: 0.25, ease: "easeOut" }}
-    >
-      {/* Gradient preview */}
-      <div
-        className={`bg-gradient-to-br ${project.gradient} ${large ? "h-64" : "h-40"} relative overflow-hidden`}
-      >
-        {/* Grid overlay */}
+      <div className="group relative rounded-2xl overflow-hidden glass-card h-full flex flex-col transition-[transform,border-color,box-shadow] duration-300 hover:-translate-y-1 hover:border-[rgba(108,71,255,0.45)] hover:shadow-[0_0_34px_rgba(108,71,255,0.16),0_24px_60px_-20px_rgba(0,0,0,0.7)]">
+        {/* Gradient preview */}
         <div
-          className="absolute inset-0 opacity-10"
-          style={{
-            backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
-            backgroundSize: "30px 30px",
-          }}
-        />
-        {/* Decorative shapes */}
-        <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 rounded-full opacity-20 blur-xl"
-          style={{ background: project.accent }}
-        />
-        <div
-          className="absolute top-1/4 right-1/4 w-12 h-12 rounded-lg opacity-30 rotate-45"
-          style={{ background: project.accent, border: `1px solid ${project.accent}60` }}
-        />
-
-        {/* Hover overlay */}
-        <motion.div
-          className="absolute inset-0 flex items-center justify-center"
-          initial={{ opacity: 0 }}
-          whileHover={{ opacity: 1 }}
-          transition={{ duration: 0.2 }}
+          className={`bg-gradient-to-br ${project.gradient} h-40 relative overflow-hidden shrink-0`}
         >
-          <div className="bg-black/50 backdrop-blur-sm rounded-full p-3">
-            <ArrowUpRight size={20} className="text-white" />
-          </div>
-        </motion.div>
-      </div>
-
-      {/* Content */}
-      <div className={`p-5 ${large ? "p-6" : ""}`}>
-        <div className="flex items-center justify-between mb-2">
-          <span
-            className="text-xs font-mono px-2 py-0.5 rounded"
+          {/* Grid overlay */}
+          <div
+            className="absolute inset-0 opacity-10"
             style={{
-              background: `${project.accent}15`,
-              color: project.accent,
-              border: `1px solid ${project.accent}25`,
+              backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
+              backgroundSize: "30px 30px",
             }}
-          >
-            {project.category}
+          />
+          <div
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 rounded-full opacity-20 blur-xl"
+            style={{ background: project.accent }}
+          />
+          <div
+            className="absolute top-1/4 right-1/4 w-12 h-12 rounded-lg opacity-30 rotate-45"
+            style={{ background: project.accent, border: `1px solid ${project.accent}60` }}
+          />
+
+          {/* Live badge */}
+          <span className="absolute top-3 left-3 z-20 inline-flex items-center gap-1.5 rounded-full bg-accent/90 backdrop-blur-sm px-2.5 py-1 text-[11px] font-semibold text-white shadow-lg shadow-accent/30">
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="absolute inline-flex h-full w-full rounded-full bg-white opacity-75 animate-ping" />
+              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-white" />
+            </span>
+            Live
           </span>
-          <span className="text-xs text-muted font-mono">{project.year}</span>
         </div>
 
-        <h3
-          className={`font-display font-bold text-primary mb-2 group-hover:text-accent transition-colors ${
-            large ? "text-2xl" : "text-xl"
-          }`}
-        >
-          {project.name}
-        </h3>
-        <p className="text-muted text-sm leading-relaxed line-clamp-2">
-          {project.description}
-        </p>
+        {/* Content */}
+        <div className="p-5 flex flex-col flex-1">
+          <div className="flex items-center justify-between mb-2">
+            <span
+              className="text-xs font-mono px-2 py-0.5 rounded"
+              style={{
+                background: `${project.accent}15`,
+                color: project.accent,
+                border: `1px solid ${project.accent}25`,
+              }}
+            >
+              {project.categoryLabel}
+            </span>
+          </div>
 
-        <div className="mt-4 flex items-center justify-between">
-          <div className="flex gap-2 flex-wrap">
+          <h3 className="font-display font-bold text-xl text-primary mb-2 group-hover:text-accent transition-colors">
+            {project.name}
+          </h3>
+          <p className="text-muted text-sm leading-relaxed">
+            {project.description}
+          </p>
+
+          <div className="mt-4 flex items-center gap-2 flex-wrap">
             {project.stack.map((tech) => (
               <span key={tech} className="text-xs text-muted/70 font-mono">
                 {tech}
               </span>
             ))}
           </div>
-          <span className="text-xs text-accent opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
-            View Project <ArrowUpRight size={12} />
-          </span>
-        </div>
-      </div>
 
-      {/* Bottom border glow on hover */}
-      <div
-        className="absolute bottom-0 left-0 h-px w-0 group-hover:w-full transition-all duration-500"
-        style={{ background: `linear-gradient(90deg, ${project.accent}, transparent)` }}
-      />
-    </motion.div>
+          {/* Actions */}
+          {isCards ? (
+            <div className="mt-5 pt-4 border-t border-white/[0.06]">
+              <p className="text-[11px] text-muted uppercase tracking-wider mb-2.5">
+                Sample cards
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {project.samples!.map((s) => (
+                  <a
+                    key={s.name}
+                    href={s.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="relative z-20 inline-flex items-center gap-1 text-xs font-medium px-3 py-1.5 rounded-full border border-white/[0.1] text-primary/90 bg-white/[0.03] hover:border-accent/50 hover:text-accent hover:bg-accent/[0.06] transition-all"
+                  >
+                    {s.name} <ArrowUpRight size={12} />
+                  </a>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <div className="mt-auto pt-5 flex items-center justify-between">
+              <span className="text-sm font-medium text-accent flex items-center gap-1 group-hover:gap-1.5 transition-all">
+                View Project <ArrowUpRight size={14} />
+              </span>
+            </div>
+          )}
+        </div>
+
+        {/* Stretched link for single-destination cards */}
+        {!isCards && project.url && (
+          <a
+            href={project.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`View ${project.name} (opens in a new tab)`}
+            className="absolute inset-0 z-10"
+          />
+        )}
+
+        {/* Bottom border glow on hover */}
+        <div
+          className="absolute bottom-0 left-0 h-px w-0 group-hover:w-full transition-all duration-500 pointer-events-none"
+          style={{ background: `linear-gradient(90deg, ${project.accent}, transparent)` }}
+        />
+      </div>
     </TiltCard>
   );
 }

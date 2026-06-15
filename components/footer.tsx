@@ -76,6 +76,7 @@ export default function Footer() {
                 height={64}
                 width={256}
                 className="h-16 w-auto object-contain"
+                style={{ height: "auto" }}
               />
             </motion.div>
             <motion.span

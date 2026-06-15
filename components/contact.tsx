@@ -13,8 +13,10 @@ const projectTypes = [
   "Something else",
 ];
 
-// TODO: add Web3Forms key — create one free at https://web3forms.com (routes to pogime05@gmail.com)
-const WEB3FORMS_ACCESS_KEY = "YOUR_WEB3FORMS_ACCESS_KEY";
+// TODO: add Web3Forms key — create a free access key at https://web3forms.com
+// and paste it here. Submissions POST to https://api.web3forms.com/submit and
+// route to pogime05@gmail.com. The form is fully wired; it just needs the key.
+const WEB3FORMS_KEY = "TODO_ADD_KEY";
 
 export default function Contact() {
   const ref = useRef(null);
@@ -29,7 +31,7 @@ export default function Contact() {
     setError(null);
 
     const formData = new FormData(e.currentTarget);
-    formData.append("access_key", WEB3FORMS_ACCESS_KEY);
+    formData.append("access_key", WEB3FORMS_KEY);
     formData.append("subject", "New project inquiry — HyperNova Technologies");
     formData.append("from_name", "HyperNova Technologies Website");
 
