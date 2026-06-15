@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { SectionGlow, SectionDivider } from "./ui/section-glow";
+import { TiltCard } from "./ui/tilt-card";
 
 const projects = [
   {
@@ -127,6 +128,7 @@ function ProjectCard({
   large?: boolean;
 }) {
   return (
+    <TiltCard className="h-full" glareColor={project.accent}>
     <motion.div
       className="group relative rounded-2xl overflow-hidden glass-card h-full cursor-pointer"
       whileHover={{
@@ -219,5 +221,6 @@ function ProjectCard({
         style={{ background: `linear-gradient(90deg, ${project.accent}, transparent)` }}
       />
     </motion.div>
+    </TiltCard>
   );
 }

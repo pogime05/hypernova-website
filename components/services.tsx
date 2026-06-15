@@ -4,6 +4,7 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { CreditCard, LayoutDashboard, Sparkles, Smartphone } from "lucide-react";
 import { SectionGlow, SectionDivider } from "./ui/section-glow";
+import { TiltCard } from "./ui/tilt-card";
 import {
   DigitalCardVisual,
   DashboardVisual,
@@ -129,6 +130,7 @@ export default function Services() {
                 variants={itemVariants}
                 className={service.span}
               >
+                <TiltCard className="h-full" glareColor={service.color}>
                 <motion.div
                   className="glass-card rounded-2xl p-6 h-full flex flex-col relative overflow-hidden group"
                   whileHover={{
@@ -194,6 +196,7 @@ export default function Services() {
                     }}
                   />
                 </motion.div>
+                </TiltCard>
               </motion.div>
             );
           })}

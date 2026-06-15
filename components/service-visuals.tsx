@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { CountUp } from "./ui/count-up";
 import {
   Globe,
   Mail,
@@ -93,9 +94,9 @@ const QR_PATTERN = [
 // 2 ── WEB APPS → a tiny dashboard (stat tiles + animated sparkline) ──────────
 export function DashboardVisual() {
   const stats = [
-    { label: "Revenue", value: "$48.2k", delta: "+12%" },
-    { label: "Active", value: "2,941", delta: "+5.4%" },
-    { label: "Uptime", value: "99.9%", delta: "30d" },
+    { label: "Revenue", value: 48.2, decimals: 1, prefix: "$", suffix: "k", delta: "+12%" },
+    { label: "Active", value: 2941, decimals: 0, delta: "+5.4%" },
+    { label: "Uptime", value: 99.9, decimals: 1, suffix: "%", delta: "30d" },
   ];
 
   return (
@@ -108,7 +109,12 @@ export function DashboardVisual() {
           >
             <div className="text-[10px] text-muted truncate">{s.label}</div>
             <div className="text-sm font-semibold text-primary leading-tight">
-              {s.value}
+              <CountUp
+                value={s.value}
+                decimals={s.decimals}
+                prefix={s.prefix}
+                suffix={s.suffix}
+              />
             </div>
             <div className="flex items-center gap-0.5 text-[10px] text-emerald-400">
               <TrendingUp size={10} /> {s.delta}
