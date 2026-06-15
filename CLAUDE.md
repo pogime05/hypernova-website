@@ -12,7 +12,7 @@ Live: https://hypernova-website.vercel.app · Repo: github.com/pogime05/hypernov
 - **Always write the full name "HyperNova Technologies"** — never "Hypernova" or "Hypernova Studio".
 - **Fonts:** Orbitron (company name only — all-caps, tracking-wider) · Syne (headings) · Inter (body).
 - **Palette:**
-  - bg `#0A0A0F` · surface `#13131A` · elevated `#1A1A24` · border `rgba(255,255,255,0.06)`
+  - bg `#111119` · surface `#181820` · elevated `#1F1F2A` · border `rgba(255,255,255,0.06)`
   - accent violet `#6C47FF` · accent cyan `#00D9FF`
   - text `#F0F0F5` · muted `#9B9BAD` (raised from `#6B6B7B` for WCAG AA on dark)
 - Dark theme but **always layered** — surfaces, accent glows, light pockets. Never flat-black void.

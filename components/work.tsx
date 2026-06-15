@@ -136,7 +136,7 @@ export default function Work({
     <section
       id="work"
       className="py-32 relative border-t border-white/[0.06] overflow-hidden"
-      style={{ background: "linear-gradient(180deg, #0E0E16 0%, #0A0A0F 100%)" }}
+      style={{ background: "linear-gradient(180deg, #16161F 0%, #111119 100%)" }}
       ref={ref}
     >
       <SectionDivider />

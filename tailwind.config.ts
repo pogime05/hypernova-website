@@ -10,9 +10,9 @@ const config: Config = {
     extend: {
       colors: {
         // Layered surface system — depth via stacked tones, not flat black.
-        bg: "#0A0A0F", // base canvas
-        surface: "#13131A", // raised panels / cards
-        elevated: "#1A1A24", // highest surfaces / inner UI / popovers
+        bg: "#111119", // base canvas — rich dark, not black-void
+        surface: "#181820", // raised panels / cards
+        elevated: "#1F1F2A", // highest surfaces / inner UI / popovers
         hairline: "rgba(255,255,255,0.06)", // 1px separators
         accent: "#6C47FF",
         cyan: "#00D9FF",

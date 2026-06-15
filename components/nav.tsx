@@ -102,20 +102,22 @@ export default function Nav() {
           <Link href="/" className="flex items-center gap-3 group" aria-label="HyperNova Technologies — home">
             <motion.div
               animate={{
+                // Subtle accent halo behind the mark — capped at 6px blur and
+                // kept translucent so it never washes out the logo itself.
                 filter: [
-                  "drop-shadow(0 0 4px #6C47FF)",
-                  "drop-shadow(0 0 12px #6C47FF)",
-                  "drop-shadow(0 0 4px #6C47FF)",
+                  "drop-shadow(0 0 2px rgba(108,71,255,0.35))",
+                  "drop-shadow(0 0 6px rgba(108,71,255,0.55))",
+                  "drop-shadow(0 0 2px rgba(108,71,255,0.35))",
                 ],
               }}
-              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" as const }}
+              transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" as const }}
             >
               <Image
                 src="/logo.png"
                 alt="HyperNova Technologies"
                 height={44}
                 width={44}
-                className="h-11 w-11 object-contain"
+                className="h-11 w-11 object-contain opacity-100"
               />
             </motion.div>
             <motion.span

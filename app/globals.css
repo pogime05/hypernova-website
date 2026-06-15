@@ -34,7 +34,7 @@ html.lenis body {
 }
 
 body {
-  background: #0A0A0F;
+  background: #111119;
   color: #F0F0F5;
   font-family: var(--font-inter), sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -58,7 +58,7 @@ body::before {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #0A0A0F;
+  background: #111119;
 }
 ::-webkit-scrollbar-thumb {
   background: #6C47FF;
@@ -102,20 +102,20 @@ body::before {
 
   /* Nav glass — translucent bar with a hairline base. */
   .glass {
-    background: rgba(13, 13, 20, 0.72);
+    background: rgba(20, 20, 30, 0.72);
     backdrop-filter: blur(20px) saturate(140%);
     -webkit-backdrop-filter: blur(20px) saturate(140%);
     border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   }
 
-  /* Card glass — elevated surface (#1A1A24 → #13131A), blur, hairline border,
+  /* Card glass — elevated surface (#1F1F2A → #181820), blur, hairline border,
      inset top highlight + soft drop. Opaque enough to read as a lifted panel,
      not a flat-black void, while still letting a hint of aurora through. */
   .glass-card {
     background: linear-gradient(
       180deg,
-      rgba(26, 26, 36, 0.86) 0%,
-      rgba(19, 19, 26, 0.82) 100%
+      rgba(31, 31, 42, 0.86) 0%,
+      rgba(24, 24, 32, 0.82) 100%
     );
     backdrop-filter: blur(16px) saturate(130%);
     -webkit-backdrop-filter: blur(16px) saturate(130%);
@@ -127,7 +127,7 @@ body::before {
 
   /* Inner panels inside cards (mini-UI chrome). */
   .glass-inset {
-    background: rgba(10, 10, 15, 0.55);
+    background: rgba(17, 17, 25, 0.55);
     border: 1px solid rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
