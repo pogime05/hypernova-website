@@ -97,13 +97,13 @@ export default function Hero() {
 
             <motion.div variants={fadeUp} className="flex flex-wrap gap-4 pt-2">
               <MagneticButton
-                href="#work"
+                href="/work"
                 className="inline-flex items-center justify-center gap-2 bg-[#6C47FF] hover:bg-violet-500 text-white font-bold px-8 py-4 rounded-xl text-lg transition-colors"
               >
                 See Our Work <ArrowRight size={18} />
               </MagneticButton>
               <MagneticButton
-                href="#process"
+                href="/services"
                 className="inline-flex items-center justify-center border border-white/20 hover:border-white/50 text-white font-medium px-8 py-4 rounded-xl text-lg backdrop-blur-sm bg-white/5 transition-colors"
               >
                 How We Work

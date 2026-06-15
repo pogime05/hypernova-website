@@ -2,13 +2,15 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import { Reveal } from "./ui/reveal";
 
 const navLinks = [
-  { label: "Work", href: "#work" },
-  { label: "Services", href: "#services" },
-  { label: "Process", href: "#process" },
-  { label: "Contact", href: "#contact" },
+  { label: "Home", href: "/" },
+  { label: "Work", href: "/work" },
+  { label: "Services", href: "/services" },
+  { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
 ];
 
 const socials = [
@@ -111,13 +113,13 @@ export default function Footer() {
               Navigate
             </p>
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.href}
                 href={link.href}
                 className="text-sm text-muted hover:text-primary transition-colors w-fit"
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
           </Reveal>
 

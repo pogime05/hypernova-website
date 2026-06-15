@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
+import Link from "next/link";
 import { SectionGlow, SectionDivider } from "./ui/section-glow";
 import { TiltCard } from "./ui/tilt-card";
 
@@ -42,7 +43,7 @@ const projects = [
   },
 ];
 
-export default function Work() {
+export default function Work({ preview = false }: { preview?: boolean }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, amount: 0.15 });
 
@@ -75,16 +76,16 @@ export default function Work() {
             <h2 className="font-display font-extrabold text-4xl md:text-5xl lg:text-6xl text-primary leading-tight">
               Work that speaks
             </h2>
-            <a
-              href="#contact"
+            <Link
+              href={preview ? "/work" : "/contact"}
               className="text-sm text-muted hover:text-accent transition-colors flex items-center gap-1 group"
             >
-              View all projects{" "}
+              {preview ? "See all work" : "Start a project"}{" "}
               <ArrowUpRight
                 size={14}
                 className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
               />
-            </a>
+            </Link>
           </div>
         </motion.div>
 

@@ -1,51 +1,22 @@
-import dynamic from "next/dynamic";
-import SmoothScroll from "@/components/smooth-scroll";
-import Nav from "@/components/nav";
 import Hero from "@/components/hero";
 import Marquee from "@/components/marquee";
 import Services from "@/components/services";
 import AIShowcase from "@/components/ai-showcase";
 import Work from "@/components/work";
-import Process from "@/components/process";
-import Testimonials from "@/components/testimonials";
-import Contact from "@/components/contact";
-import Footer from "@/components/footer";
+import CTABand from "@/components/cta-band";
 
-const ShaderBackground = dynamic(
-  () => import("@/components/ui/animated-shader-background"),
-  { ssr: false }
-);
-
+// Home — hero + condensed highlights (services preview, AI showcase, a
+// 3-project work preview) + closing CTA. Deeper detail lives on the routed
+// pages; the previews link through to them.
 export default function Home() {
   return (
-    <SmoothScroll>
-      {/* Aurora shader — fixed full-screen at z-0 (opacity owned by the shader) */}
-      <div
-        style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          width: "100vw",
-          height: "100vh",
-          zIndex: 0,
-        }}
-      >
-        <ShaderBackground />
-      </div>
-
-      {/* Page content — stacked above the shader */}
-      <main className="relative z-10 min-h-screen text-primary overflow-x-hidden">
-        <Nav />
-        <Hero />
-        <Marquee />
-        <Services />
-        <AIShowcase />
-        <Work />
-        <Process />
-        <Testimonials />
-        <Contact />
-        <Footer />
-      </main>
-    </SmoothScroll>
+    <>
+      <Hero />
+      <Marquee />
+      <Services preview />
+      <AIShowcase />
+      <Work preview />
+      <CTABand />
+    </>
   );
 }

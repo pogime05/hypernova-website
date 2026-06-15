@@ -2,6 +2,11 @@
 
 import { ReactNode, useRef } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
+import Link from "next/link";
+
+// Animated next/link so internal routes get client-side navigation (and the
+// page transition) while keeping the magnetic spring effect.
+const MotionLink = motion.create(Link);
 
 interface MagneticButtonProps {
   children: ReactNode;
@@ -61,6 +66,20 @@ export function MagneticButton({
   };
 
   if (href) {
+    // Internal routes use next/link for client-side nav; hashes/external use <a>.
+    const isInternal = href.startsWith("/");
+    if (isInternal) {
+      return (
+        <MotionLink
+          ref={ref as React.Ref<HTMLAnchorElement>}
+          href={href}
+          aria-label={ariaLabel}
+          {...motionProps}
+        >
+          {children}
+        </MotionLink>
+      );
+    }
     return (
       <motion.a
         ref={ref as React.Ref<HTMLAnchorElement>}

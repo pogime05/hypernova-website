@@ -2,7 +2,8 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { CreditCard, LayoutDashboard, Sparkles, Smartphone } from "lucide-react";
+import { CreditCard, LayoutDashboard, Sparkles, Smartphone, ArrowUpRight } from "lucide-react";
+import Link from "next/link";
 import { SectionGlow, SectionDivider } from "./ui/section-glow";
 import { TiltCard } from "./ui/tilt-card";
 import {
@@ -65,7 +66,7 @@ const itemVariants = {
   show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" as const } },
 };
 
-export default function Services() {
+export default function Services({ preview = false }: { preview?: boolean }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, amount: 0.15 });
 
@@ -107,10 +108,23 @@ export default function Services() {
             <h2 className="font-display font-extrabold text-4xl md:text-5xl lg:text-6xl text-primary leading-tight">
               What we build
             </h2>
-            <p className="text-muted text-lg max-w-sm">
-              Four product types. One studio. No hand-offs, no guesswork — live
-              previews, not promises.
-            </p>
+            {preview ? (
+              <Link
+                href="/services"
+                className="text-sm text-muted hover:text-accent transition-colors flex items-center gap-1 group"
+              >
+                Explore services{" "}
+                <ArrowUpRight
+                  size={14}
+                  className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
+                />
+              </Link>
+            ) : (
+              <p className="text-muted text-lg max-w-sm">
+                Four product types. One studio. No hand-offs, no guesswork — live
+                previews, not promises.
+              </p>
+            )}
           </div>
         </motion.div>
 

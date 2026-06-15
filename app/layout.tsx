@@ -2,6 +2,10 @@ import type { Metadata } from "next";
 import { Inter, Syne, Orbitron } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
+import SmoothScroll from "@/components/smooth-scroll";
+import Background from "@/components/background";
+import Nav from "@/components/nav";
+import Footer from "@/components/footer";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -57,7 +61,17 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${syne.variable} ${orbitron.variable}`}>
       <body className="antialiased bg-bg text-primary font-sans">
-        {children}
+        <SmoothScroll>
+          {/* Persistent shell — shader, nav and footer live outside the
+              per-route <template>, so they never re-mount or re-animate on
+              navigation, and the shader keeps a single mount site-wide. */}
+          <Background />
+          <Nav />
+          <main className="relative z-10 min-h-screen text-primary overflow-x-hidden">
+            {children}
+            <Footer />
+          </main>
+        </SmoothScroll>
         <Analytics />
       </body>
     </html>
