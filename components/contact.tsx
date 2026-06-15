@@ -16,7 +16,7 @@ const projectTypes = [
 // TODO: add Web3Forms key — create a free access key at https://web3forms.com
 // and paste it here. Submissions POST to https://api.web3forms.com/submit and
 // route to pogime05@gmail.com. The form is fully wired; it just needs the key.
-const WEB3FORMS_KEY = "TODO_ADD_KEY";
+const WEB3FORMS_KEY = "064d7e2a-4e74-470d-a6d2-0ecd0824f5c3";
 
 export default function Contact() {
   const ref = useRef(null);
