@@ -10,8 +10,8 @@ import { motion } from "framer-motion";
  *
  * Important: once the slide finishes we clear the inline transform. Framer
  * leaves a lingering `translateY(0px)`, and any transform on an ancestor turns
- * it into the containing block for `position: fixed` — which would break
- * GSAP ScrollTrigger pinning (the Process deck) further down the page.
+ * it into the containing block for `position: fixed` — which would break any
+ * `position: fixed` descendants (e.g. the nav) further down the page.
  */
 export default function Template({ children }: { children: React.ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);

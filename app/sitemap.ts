@@ -5,21 +5,19 @@ const BASE_URL = "https://hypernova-website.vercel.app";
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
 
-  // Single-page site — the home page plus its in-page anchor sections.
-  const anchors = ["services", "ai", "work", "process", "contact"];
-
-  return [
-    {
-      url: BASE_URL,
-      lastModified,
-      changeFrequency: "monthly",
-      priority: 1,
-    },
-    ...anchors.map((id) => ({
-      url: `${BASE_URL}/#${id}`,
-      lastModified,
-      changeFrequency: "monthly" as const,
-      priority: 0.8,
-    })),
+  // Five-page architecture — home carries top priority, the rest follow.
+  const routes: { path: string; priority: number }[] = [
+    { path: "/", priority: 1 },
+    { path: "/work", priority: 0.9 },
+    { path: "/services", priority: 0.9 },
+    { path: "/about", priority: 0.7 },
+    { path: "/contact", priority: 0.7 },
   ];
+
+  return routes.map(({ path, priority }) => ({
+    url: `${BASE_URL}${path}`,
+    lastModified,
+    changeFrequency: "monthly",
+    priority,
+  }));
 }
