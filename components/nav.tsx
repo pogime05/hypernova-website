@@ -65,16 +65,26 @@ function ActiveUnderline() {
 export default function Nav() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
+  const [progress, setProgress] = useState(0); // scroll-progress bar (0–1)
   const [menuOpen, setMenuOpen] = useState(false); // mobile drawer
   const [openMega, setOpenMega] = useState<string | null>(null); // desktop dropdown
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
 
   useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 20);
+    const handler = () => {
+      const y = window.scrollY;
+      setScrolled(y > 20);
+      const h = document.documentElement.scrollHeight - window.innerHeight;
+      setProgress(h > 0 ? Math.min(1, Math.max(0, y / h)) : 0);
+    };
     handler();
-    window.addEventListener("scroll", handler);
-    return () => window.removeEventListener("scroll", handler);
-  }, []);
+    window.addEventListener("scroll", handler, { passive: true });
+    window.addEventListener("resize", handler);
+    return () => {
+      window.removeEventListener("scroll", handler);
+      window.removeEventListener("resize", handler);
+    };
+  }, [pathname]);
 
   useEffect(() => {
     setOpenMega(null);
@@ -86,6 +96,13 @@ export default function Nav() {
 
   return (
     <>
+      {/* Scroll-progress bar — thin accent line at the very top edge. */}
+      <div
+        aria-hidden="true"
+        className="fixed top-0 left-0 right-0 z-[60] h-[2px] bg-accent origin-left will-change-transform"
+        style={{ transform: `scaleX(${progress})` }}
+      />
+
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${
           scrolled || menuOpen
@@ -127,12 +144,16 @@ export default function Nav() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`relative text-sm transition-colors duration-200 ${
+                  className={`group relative text-sm transition-colors duration-200 ${
                     isActive(item.href) ? "text-ink font-medium" : "text-ash hover:text-ink"
                   }`}
                 >
                   {item.label}
-                  {isActive(item.href) && <ActiveUnderline />}
+                  {isActive(item.href) ? (
+                    <ActiveUnderline />
+                  ) : (
+                    <span className="absolute -bottom-1.5 left-0 right-0 h-px bg-ink origin-left scale-x-0 transition-transform duration-200 group-hover:scale-x-100" />
+                  )}
                 </Link>
               )
             )}
@@ -248,7 +269,7 @@ function MegaItem({
         aria-expanded={open}
         onFocus={() => setOpen(true)}
         onClick={() => setOpen(!open)}
-        className={`relative flex items-center gap-1 text-sm transition-colors duration-200 ${
+        className={`group relative flex items-center gap-1 text-sm transition-colors duration-200 ${
           active || open ? "text-ink font-medium" : "text-ash hover:text-ink"
         }`}
       >
@@ -257,7 +278,11 @@ function MegaItem({
           size={14}
           className={`transition-transform duration-200 ${open ? "rotate-180" : ""}`}
         />
-        {active && <ActiveUnderline />}
+        {active ? (
+          <ActiveUnderline />
+        ) : (
+          <span className="absolute -bottom-1.5 left-0 right-[18px] h-px bg-ink origin-left scale-x-0 transition-transform duration-200 group-hover:scale-x-100" />
+        )}
       </button>
 
       <AnimatePresence>

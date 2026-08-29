@@ -1,7 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { motion, useInView } from "framer-motion";
+import { useState } from "react";
 import { Send, ChevronDown } from "lucide-react";
 import { Button } from "./ui/button";
 
@@ -23,8 +22,6 @@ const inputClasses =
   "bg-paper border border-rule px-4 py-3 text-ink placeholder-ash/60 text-sm outline-none focus:border-accent transition-colors";
 
 export default function Contact() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, amount: 0.15 });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -62,17 +59,11 @@ export default function Contact() {
     <section
       id="contact"
       className="pt-32 md:pt-40 pb-24 md:pb-28 relative bg-paper"
-      ref={ref}
     >
       <div className="max-w-8xl mx-auto px-6 md:px-10">
         <div className="grid md:grid-cols-12 gap-12 md:gap-16">
           {/* Left — heading + direct contact */}
-          <motion.div
-            className="md:col-span-5"
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}
-          >
+          <div className="rise md:col-span-5">
             <p className="eyebrow text-ash mb-6">Let&apos;s work together</p>
             <h1
               className="font-display font-extrabold text-ink tracking-[-0.02em] leading-[0.95]"
@@ -94,15 +85,10 @@ export default function Contact() {
                 {CONTACT_EMAIL}
               </a>
             </div>
-          </motion.div>
+          </div>
 
           {/* Right — form */}
-          <motion.div
-            className="md:col-span-7"
-            initial={{ opacity: 0, y: 30 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.12 }}
-          >
+          <div className="rise md:col-span-7" style={{ animationDelay: "0.12s" }}>
             {submitted ? (
               <div className="border border-rule p-10 md:p-12 flex flex-col items-start">
                 <div className="w-12 h-12 border border-accent flex items-center justify-center mb-6 text-accent">
@@ -213,7 +199,7 @@ export default function Contact() {
                 </div>
               </form>
             )}
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

@@ -1,31 +1,14 @@
-"use client";
-
-import { useRef } from "react";
-import { motion } from "framer-motion";
-
 /**
  * Per-route transition wrapper. Next.js remounts `template.tsx` on every
- * navigation (unlike `layout.tsx`), so a mount-time enter animation gives each
- * page a subtle fade + slide.
+ * navigation (unlike `layout.tsx`), so the `.page-enter` CSS animation replays
+ * on each route change for a subtle fade.
  *
- * Important: once the slide finishes we clear the inline transform. Framer
- * leaves a lingering `translateY(0px)`, and any transform on an ancestor turns
- * it into the containing block for `position: fixed` — which would break any
- * `position: fixed` descendants (e.g. the nav) further down the page.
+ * The transition is CSS-driven (see app/globals.css) rather than framer-motion
+ * on purpose: a CSS animation runs at first paint and ends in the visible
+ * state, so the page is never rendered at opacity:0 while waiting for React to
+ * hydrate. Opacity-only (no transform) keeps this element from becoming the
+ * containing block for any `position: fixed` descendants.
  */
 export default function Template({ children }: { children: React.ReactNode }) {
-  const ref = useRef<HTMLDivElement>(null);
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-      onAnimationComplete={() => {
-        if (ref.current) ref.current.style.transform = "none";
-      }}
-    >
-      {children}
-    </motion.div>
-  );
+  return <div className="page-enter">{children}</div>;
 }

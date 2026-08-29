@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Services from "@/components/services";
+import AIShowcase from "@/components/ai-showcase";
 import Process from "@/components/process";
 import CTABand from "@/components/cta-band";
 
@@ -13,6 +14,7 @@ export default function ServicesPage() {
   return (
     <>
       <Services />
+      <AIShowcase />
       <Process />
       <CTABand
         heading="Ready to build?"

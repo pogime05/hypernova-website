@@ -1,10 +1,10 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { ClipReveal } from "./ui/reveal";
 
 type Category = "website" | "app" | "cards";
 
@@ -118,8 +118,7 @@ export default function Work({
   preview?: boolean;
   category?: string | null;
 }) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, amount: 0.1 });
+  const reduced = useReducedMotion();
 
   const activeCategory: Category | "all" =
     category === "website" || category === "app" || category === "cards"
@@ -132,31 +131,29 @@ export default function Work({
       ? projects
       : projects.filter((p) => p.category === activeCategory);
 
+  const heading = (
+    <div>
+      <p className="eyebrow text-ash mb-5">
+        {preview ? "(04) Selected work" : "Selected work"}
+      </p>
+      <h2
+        className="font-display font-extrabold text-ink tracking-[-0.02em] leading-[0.95]"
+        style={{ fontSize: "clamp(2.25rem, 5.5vw, 4.5rem)" }}
+      >
+        Work that speaks.
+      </h2>
+    </div>
+  );
+
   return (
     <section
       id="work"
       className="py-24 md:py-32 relative border-t border-rule bg-paper"
-      ref={ref}
     >
       <div className="max-w-8xl mx-auto px-6 md:px-10">
         {/* Header */}
-        <motion.div
-          className="flex flex-wrap items-end justify-between gap-6 mb-12 md:mb-16"
-          initial={{ opacity: 0, y: 16 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-        >
-          <div>
-            <p className="eyebrow text-ash mb-5">
-              {preview ? "(01) Selected work" : "Selected work"}
-            </p>
-            <h2
-              className="font-display font-extrabold text-ink tracking-[-0.02em] leading-[0.95]"
-              style={{ fontSize: "clamp(2.25rem, 5.5vw, 4.5rem)" }}
-            >
-              Work that speaks.
-            </h2>
-          </div>
+        <div className="flex flex-wrap items-end justify-between gap-6 mb-12 md:mb-16">
+          {preview ? <ClipReveal>{heading}</ClipReveal> : <div className="rise">{heading}</div>}
           {preview ? (
             <Link
               href="/work"
@@ -173,16 +170,11 @@ export default function Work({
               Real, shipped work — tap any project to see it live.
             </p>
           )}
-        </motion.div>
+        </div>
 
         {/* Filter pills (full page only) */}
         {!preview && (
-          <motion.div
-            className="flex flex-wrap gap-x-6 gap-y-2 mb-12 border-b border-rule pb-5"
-            initial={{ opacity: 0 }}
-            animate={inView ? { opacity: 1 } : {}}
-            transition={{ duration: 0.5, delay: 0.1 }}
-          >
+          <div className="rise flex flex-wrap gap-x-6 gap-y-2 mb-12 border-b border-rule pb-5" style={{ animationDelay: "0.08s" }}>
             {filters.map((f) => {
               const active = activeCategory === f.value;
               return (
@@ -191,40 +183,44 @@ export default function Work({
                   href={f.value === "all" ? "/work" : `/work?category=${f.value}`}
                   scroll={false}
                   className={`eyebrow transition-colors ${
-                    active
-                      ? "text-accent"
-                      : "text-ash hover:text-ink"
+                    active ? "text-accent" : "text-ash hover:text-ink"
                   }`}
                 >
                   {f.label}
                 </Link>
               );
             })}
-          </motion.div>
+          </div>
         )}
 
         {/* Editorial project grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-14 md:gap-y-20">
-          {visible.map((project, i) => (
-            <motion.div
-              key={project.name}
-              initial={{ opacity: 0, y: 26 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.55, delay: 0.08 + (i % 2) * 0.08 }}
-            >
-              <ProjectCard project={project} />
-            </motion.div>
-          ))}
+          {visible.map((project, i) =>
+            preview ? (
+              <motion.div
+                key={project.name}
+                initial={reduced ? false : { opacity: 0, y: 26 }}
+                whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.5, delay: (i % 2) * 0.08, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <ProjectCard project={project} />
+              </motion.div>
+            ) : (
+              <div
+                key={project.name}
+                className="rise"
+                style={{ animationDelay: `${0.1 + (i % 2) * 0.08}s` }}
+              >
+                <ProjectCard project={project} />
+              </div>
+            )
+          )}
         </div>
 
         {/* Also delivered (full page only) */}
         {!preview && (
-          <motion.div
-            className="mt-20 border-t border-rule pt-10"
-            initial={{ opacity: 0, y: 16 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
+          <div className="mt-20 border-t border-rule pt-10">
             <p className="eyebrow text-ash mb-5">Also delivered</p>
             <div className="flex flex-wrap gap-x-6 gap-y-2">
               {alsoDelivered.map((item) => (
@@ -233,7 +229,7 @@ export default function Work({
                 </span>
               ))}
             </div>
-          </motion.div>
+          </div>
         )}
       </div>
     </section>
@@ -246,7 +242,7 @@ function ProjectCard({ project }: { project: Project }) {
   return (
     <article className="group flex flex-col">
       {/* Visual — full-bleed photo, or an ink block for abstract products */}
-      <div className="relative aspect-[16/10] overflow-hidden border border-rule bg-ink">
+      <div className="relative aspect-[16/10] overflow-hidden border border-rule bg-ink transition-colors duration-300 group-hover:border-accent">
         {project.image ? (
           <Image
             src={IMG(project.image)}
@@ -285,7 +281,7 @@ function ProjectCard({ project }: { project: Project }) {
           <span className="eyebrow text-ash">{project.stack.join(" · ")}</span>
         </div>
 
-        <h3 className="mt-3 font-display font-bold text-2xl md:text-[1.7rem] text-ink leading-tight">
+        <h3 className="mt-3 font-display font-bold text-2xl md:text-[1.7rem] text-ink leading-tight transition-colors duration-200 group-hover:text-accent">
           {project.name}
         </h3>
         <p className="mt-2 text-ash text-[0.95rem] leading-relaxed max-w-md">
@@ -315,12 +311,12 @@ function ProjectCard({ project }: { project: Project }) {
               href={project.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-accent w-fit group/link"
+              className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-accent w-fit"
             >
               View project
               <ArrowUpRight
                 size={15}
-                className="group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform"
+                className="transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-0.5"
               />
             </a>
           )

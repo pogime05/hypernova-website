@@ -25,8 +25,8 @@ export default function About() {
   return (
     <section className="relative pt-32 md:pt-40 pb-24 md:pb-28 bg-paper">
       <div className="max-w-8xl mx-auto px-6 md:px-10">
-        {/* Heading */}
-        <Reveal>
+        {/* Heading — CSS load entrance (above the fold, never JS-gated) */}
+        <div className="rise">
           <p className="eyebrow text-ash mb-6">Who&apos;s behind it</p>
           <h1
             className="font-display font-extrabold text-ink tracking-[-0.02em] leading-[0.95] max-w-4xl"
@@ -35,7 +35,7 @@ export default function About() {
             Built by an independent studio, not a{" "}
             <span className="text-accent">faceless agency.</span>
           </h1>
-        </Reveal>
+        </div>
 
         <div className="mt-14 md:mt-20 grid md:grid-cols-12 gap-10 md:gap-16 items-start">
           {/* Studio photo */}

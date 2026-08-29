@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import { ClipReveal } from "./ui/reveal";
 
 const steps = [
   {
@@ -46,12 +47,7 @@ export default function Process() {
     >
       <div className="max-w-8xl mx-auto px-6 md:px-10">
         {/* Header */}
-        <motion.div
-          className="mb-12 md:mb-16 max-w-2xl"
-          initial={{ opacity: 0, y: 16 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-        >
+        <ClipReveal className="mb-12 md:mb-16 max-w-2xl">
           <p className="eyebrow text-ash mb-5">Our approach</p>
           <h2
             className="font-display font-extrabold text-ink tracking-[-0.02em] leading-[0.95]"
@@ -59,7 +55,7 @@ export default function Process() {
           >
             How we work.
           </h2>
-        </motion.div>
+        </ClipReveal>
 
         {/* Numbered steps */}
         <div className="border-t border-rule">

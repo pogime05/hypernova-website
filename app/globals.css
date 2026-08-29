@@ -82,3 +82,56 @@ body {
     font-size: 0.72rem;
   }
 }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   Entrance system.
+
+   First-paint content (hero, page-opening headings, the per-route wrapper)
+   animates in via CSS keyframes — NOT JS. CSS animations run at first paint,
+   end in the visible state, and don't depend on React hydration, so content is
+   never stuck invisible if JS is slow or fails. Below-the-fold reveals stay on
+   framer-motion whileInView (see components/ui/reveal.tsx).
+
+   Base styles keep everything visible; the keyframes are only applied when the
+   user hasn't asked to reduce motion.
+   ───────────────────────────────────────────────────────────────────────── */
+
+.rise,
+.page-enter {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes hn-rise {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes hn-page {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* Load-entrance for above-the-fold content. Stagger via inline
+     `style={{ animationDelay }}`. fill-mode:both holds the 0% frame through
+     the delay, then settles on the visible 100% frame. */
+  .rise {
+    animation: hn-rise 0.72s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  /* Per-route transition — replays because Next remounts template.tsx on nav. */
+  .page-enter {
+    animation: hn-page 0.32s ease-out both;
+  }
+}
+

@@ -32,11 +32,22 @@ the primary structural device. Flat surfaces only — no glass, no glow, no elev
 
 ## Do / Don't
 
+- **Do** show real coded product UI as proof of work — rendered in the editorial style (paper bg, 1px `rule`
+  borders, ink line-art, mono spec labels, accent once). The site IS the portfolio; prove capability, don't just
+  describe it. Product visuals live in `components/service-visuals.tsx`; the scripted AI demo in `ai-showcase.tsx`.
+- **Do** keep ONE signature interactive moment per page (the scripted AI showcase, the self-drawing dashboard
+  chart, the scroll-progress bar). Motion is engineered, not decorative — ~200–400ms, sharp easing, never floaty.
 - **Do** treat photography as content — large, full-bleed, relevant, with real `alt` text.
 - **Do** use the accent like a highlighter — one accent moment per view, not everywhere.
+- **Do** keep entrances SSR-safe: above-the-fold content (hero, page-opening headings) uses the CSS `.rise`
+  load entrance (visible at first paint, never JS-gated); below-the-fold reveals use framer `whileInView`
+  (`Reveal` / `ClipReveal`). Never render first-paint content at `opacity:0` behind hydration — that was the
+  hero blank-on-load bug. All motion respects `prefers-reduced-motion`.
 - **Don't** reintroduce the old AI-look: aurora/WebGL shader, 3D logo canvas, glassmorphism (`backdrop-blur`),
-  glow/drop-shadow, radial "orb" gradients, gradient-filled text, tilt/magnetic/count-up motion.
-- **Don't** ship fabricated clients / testimonials / case studies without flagging them as samples.
+  glow/drop-shadow, radial "orb" gradients, gradient-filled text, tilt/magnetic/count-up motion. Product UI must
+  read as precise technical drawings on paper, not dark glassy cards.
+- **Don't** ship fabricated clients / testimonials / case studies without flagging them as samples. The AI demo
+  is scripted and must stay labelled as illustrative, not a live model.
 - **Contact email is `pogime05@gmail.com`** everywhere. The old `hello@hypernovatech.co` domain is NOT owned
   and bounces — never use it. Form posts via Web3Forms → routes to `pogime05@gmail.com`.
 
