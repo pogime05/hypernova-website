@@ -1,13 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
 import { Reveal } from "./ui/reveal";
 
 /**
- * Closing call-to-action band. Connective tissue for the multi-page layout —
- * sits at the foot of Home and the deeper pages and routes to /contact.
+ * Closing call-to-action band — the near-black "punctuation" section that
+ * anchors the foot of Home and the deeper pages and routes to /contact.
  */
 export default function CTABand({
   heading = "Have something in mind?",
@@ -17,36 +15,31 @@ export default function CTABand({
   sub?: string;
 }) {
   return (
-    <section className="relative py-28 border-t border-white/[0.06] overflow-hidden">
-      {/* layered accent glow */}
-      <div
-        aria-hidden="true"
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[820px] h-[420px] pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse at center, rgba(108,71,255,0.10), rgba(0,217,255,0.04) 45%, transparent 70%)",
-        }}
-      />
-      <div className="max-w-4xl mx-auto px-6 text-center relative">
+    <section className="relative bg-ink text-paper py-24 md:py-32">
+      <div className="max-w-8xl mx-auto px-6 md:px-10">
         <Reveal>
-          <h2 className="font-display font-extrabold text-4xl md:text-5xl lg:text-6xl text-primary leading-tight">
-            {heading}
-          </h2>
-          <p className="text-muted text-lg mt-5 max-w-xl mx-auto leading-relaxed">
-            {sub}
-          </p>
-          <motion.div
-            className="mt-9 inline-block"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            <Link
-              href="/contact"
-              className="inline-flex items-center justify-center gap-2 bg-accent text-white font-bold px-8 py-4 rounded-xl text-lg hover:bg-[#7c5aff] transition-colors shadow-lg shadow-accent/25"
-            >
-              Start a Project <ArrowRight size={18} />
-            </Link>
-          </motion.div>
+          <div className="grid md:grid-cols-12 gap-8 items-end">
+            <div className="md:col-span-8">
+              <p className="eyebrow text-paper/50 mb-6">Start a project</p>
+              <h2
+                className="font-display font-extrabold tracking-[-0.02em] leading-[0.95]"
+                style={{ fontSize: "clamp(2.5rem, 6.5vw, 6rem)" }}
+              >
+                {heading}
+              </h2>
+              <p className="text-paper/70 text-lg mt-6 max-w-xl leading-relaxed">
+                {sub}
+              </p>
+            </div>
+            <div className="md:col-span-4 md:text-right">
+              <Link
+                href="/contact"
+                className="inline-flex items-center gap-2 bg-accent text-paper font-medium px-8 py-4 text-base hover:bg-[#3a1fe0] transition-colors"
+              >
+                Start a project <span aria-hidden="true">→</span>
+              </Link>
+            </div>
+          </div>
         </Reveal>
       </div>
     </section>

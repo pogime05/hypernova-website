@@ -16,75 +16,64 @@ export default function OpengraphImage() {
           height: "100%",
           display: "flex",
           flexDirection: "column",
-          justifyContent: "center",
-          padding: "80px",
-          backgroundColor: "#111119",
-          backgroundImage:
-            "radial-gradient(circle at 15% 10%, rgba(108,71,255,0.25), transparent 55%), radial-gradient(circle at 90% 95%, rgba(0,217,255,0.18), transparent 55%)",
+          justifyContent: "space-between",
+          padding: "72px 80px",
+          backgroundColor: "#FAF9F6",
           fontFamily: "sans-serif",
         }}
       >
-        {/* eyebrow with accent dot */}
-        <div style={{ display: "flex", alignItems: "center", marginBottom: 28 }}>
+        {/* eyebrow */}
+        <div style={{ display: "flex", alignItems: "center" }}>
           <div
             style={{
-              width: 14,
-              height: 14,
-              borderRadius: 7,
-              background: "linear-gradient(135deg, #6C47FF, #00D9FF)",
+              width: 12,
+              height: 12,
+              background: "#4A2BFF",
               marginRight: 16,
             }}
           />
           <div
             style={{
-              fontSize: 26,
-              letterSpacing: 6,
+              fontSize: 24,
+              letterSpacing: 5,
               textTransform: "uppercase",
-              color: "#9B9BAD",
+              color: "#5A5A63",
             }}
           >
-            Digital Studio
+            HyperNova Technologies — Independent Digital Studio
           </div>
         </div>
 
-        {/* brand name with gradient */}
+        {/* headline */}
         <div
           style={{
             display: "flex",
-            fontSize: 96,
+            fontSize: 92,
             fontWeight: 800,
-            lineHeight: 1.05,
-            letterSpacing: -2,
-            backgroundImage: "linear-gradient(120deg, #F0F0F5 0%, #B9A9FF 60%, #00D9FF 100%)",
-            backgroundClip: "text",
-            color: "transparent",
-          }}
-        >
-          HyperNova Technologies
-        </div>
-
-        {/* tagline */}
-        <div
-          style={{
-            display: "flex",
-            marginTop: 28,
-            fontSize: 40,
-            color: "#F0F0F5",
+            lineHeight: 1.02,
+            letterSpacing: -3,
+            color: "#0E0E10",
+            maxWidth: 980,
           }}
         >
           We build digital things that actually work.
         </div>
 
-        {/* accent underline bar */}
+        {/* footer row */}
         <div
           style={{
-            marginTop: 44,
-            width: 240,
-            height: 8,
-            borderRadius: 4,
-            background: "linear-gradient(90deg, #6C47FF, #00D9FF)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            borderTop: "1px solid #E2E0DA",
+            paddingTop: 28,
           }}
-        />
+        >
+          <div style={{ display: "flex", fontSize: 26, color: "#5A5A63" }}>
+            Digital Cards · Web Apps · Mobile Apps · Marketing Sites
+          </div>
+          <div style={{ display: "flex", width: 120, height: 8, background: "#4A2BFF" }} />
+        </div>
       </div>
     ),
     { ...size }

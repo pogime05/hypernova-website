@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
-import { Inter, Syne, Orbitron } from "next/font/google";
+import { Inter, Syne, Orbitron, JetBrains_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 import SmoothScroll from "@/components/smooth-scroll";
-import Background from "@/components/background";
 import Nav from "@/components/nav";
 import Footer from "@/components/footer";
 
@@ -16,13 +15,21 @@ const inter = Inter({
 const syne = Syne({
   subsets: ["latin"],
   variable: "--font-syne",
+  weight: ["600", "700", "800"],
+  display: "swap",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jetbrains",
+  weight: ["400", "500"],
   display: "swap",
 });
 
 const orbitron = Orbitron({
   subsets: ["latin"],
   variable: "--font-orbitron",
-  weight: ["400", "500", "600", "700", "800", "900"],
+  weight: ["500", "600", "700", "800"],
   display: "swap",
 });
 
@@ -59,15 +66,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${syne.variable} ${orbitron.variable}`}>
-      <body className="antialiased bg-bg text-primary font-sans">
+    <html
+      lang="en"
+      className={`${inter.variable} ${syne.variable} ${jetbrainsMono.variable} ${orbitron.variable}`}
+    >
+      <body className="antialiased bg-paper text-ink font-sans">
         <SmoothScroll>
-          {/* Persistent shell — shader, nav and footer live outside the
-              per-route <template>, so they never re-mount or re-animate on
-              navigation, and the shader keeps a single mount site-wide. */}
-          <Background />
+          {/* Persistent shell — nav and footer live outside the per-route
+              <template>, so they never re-mount or re-animate on navigation. */}
           <Nav />
-          <main className="relative z-10 min-h-screen text-primary overflow-x-hidden">
+          <main className="relative min-h-screen overflow-x-hidden">
             {children}
             <Footer />
           </main>

@@ -1,163 +1,100 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useScroll, useTransform, type Variants } from "framer-motion";
-import dynamic from "next/dynamic";
+import { motion, type Variants } from "framer-motion";
+import Link from "next/link";
 import { Badge } from "./ui/badge";
-import { MagneticButton } from "./ui/magnetic-button";
-import { ArrowRight } from "lucide-react";
-
-const Logo3D = dynamic(() => import("./logo3d"), { ssr: false });
 
 const stagger: Variants = {
   hidden: {},
   show: {
-    transition: {
-      staggerChildren: 0.12,
-      delayChildren: 0.3,
-    },
+    transition: { staggerChildren: 0.1, delayChildren: 0.1 },
   },
 };
 
-const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 30 },
+const rise: Variants = {
+  hidden: { opacity: 0, y: 20 },
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.7, ease: "easeOut" },
+    transition: { duration: 0.75, ease: [0.22, 1, 0.36, 1] },
   },
 };
 
+const disciplines = ["Digital Cards", "Web Apps", "Mobile Apps", "Marketing Sites"];
+
 export default function Hero() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end start"],
-  });
-
-  // Layered parallax — background drifts slowest, text lifts and fades,
-  // the 3D logo column moves at its own rate for depth.
-  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "40%"]);
-  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "-30%"]);
-  const textOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
-  const logoY = useTransform(scrollYProgress, [0, 1], ["0%", "-15%"]);
-
   return (
-    <section
-      ref={sectionRef}
-      className="relative min-h-screen flex items-center overflow-hidden pt-20"
-    >
-      {/* Background gradient */}
+    <section className="relative min-h-screen flex flex-col justify-center pt-[68px] overflow-hidden">
       <motion.div
-        className="absolute inset-0 pointer-events-none"
-        style={{ y: bgY }}
+        variants={stagger}
+        initial="hidden"
+        animate="show"
+        className="w-full max-w-8xl mx-auto px-6 md:px-10 py-16 md:py-20"
       >
-        <div className="absolute top-1/4 -left-40 w-96 h-96 bg-accent/10 rounded-full blur-[120px]" />
-        <div className="absolute bottom-1/4 -right-40 w-80 h-80 bg-cyan/8 rounded-full blur-[100px]" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-px h-full bg-gradient-to-b from-transparent via-white/[0.03] to-transparent" />
-      </motion.div>
+        {/* Eyebrow row */}
+        <motion.div
+          variants={rise}
+          className="flex items-center justify-between gap-4 border-t border-rule pt-5"
+        >
+          <span className="eyebrow text-ash">
+            HyperNova Technologies — Independent digital studio
+          </span>
+          <Badge dot className="hidden sm:inline-flex">
+            Available for new projects
+          </Badge>
+        </motion.div>
 
-      <div className="max-w-7xl mx-auto px-6 w-full py-20">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left — text */}
-          <motion.div
-            variants={stagger}
-            initial="hidden"
-            animate="show"
-            style={{ y: textY, opacity: textOpacity }}
-            className="flex flex-col items-start gap-6"
-          >
-            <motion.div variants={fadeUp}>
-              <Badge variant="green" pulse>
-                Available for new projects
-              </Badge>
-            </motion.div>
+        {/* Headline */}
+        <motion.h1
+          variants={rise}
+          className="font-display font-extrabold text-ink tracking-[-0.02em] leading-[0.92] mt-10 md:mt-14"
+          style={{ fontSize: "clamp(2.75rem, 9vw, 9.5rem)" }}
+        >
+          Digital products,
+          <br />
+          built to outlast
+          <br />
+          <span className="text-accent">the hype.</span>
+        </motion.h1>
 
-            <motion.div variants={fadeUp} className="flex flex-col gap-2">
-              <h1 className="font-display text-white font-black text-6xl md:text-7xl lg:text-8xl tracking-tight leading-none">
-                Digital products
-              </h1>
-              <h1 className="font-display font-black text-6xl md:text-7xl lg:text-8xl leading-none tracking-tight">
-                <span className="bg-gradient-to-r from-[#6C47FF] to-[#00D9FF] bg-clip-text text-transparent">
-                  built to outlast
-                </span>
-              </h1>
-              <h1 className="font-display font-black text-6xl md:text-7xl lg:text-8xl leading-none tracking-tight text-white">
-                the hype.
-              </h1>
-            </motion.div>
-
-            <motion.p
-              variants={fadeUp}
-              className="text-muted text-lg md:text-xl leading-relaxed max-w-md"
+        {/* Asymmetric supporting row */}
+        <div className="mt-12 md:mt-16 grid md:grid-cols-12 gap-8 items-end">
+          <motion.div variants={rise} className="md:col-span-5 md:col-start-1 flex flex-wrap gap-3">
+            <Link
+              href="/work"
+              className="inline-flex items-center gap-2 bg-accent text-paper text-base font-medium px-7 py-4 hover:bg-[#3a1fe0] transition-colors"
             >
-              We design and develop websites, apps, and digital experiences for
-              founders, brands, and businesses ready to grow.
-            </motion.p>
-
-            <motion.div variants={fadeUp} className="flex flex-wrap gap-4 pt-2">
-              <MagneticButton
-                href="/work"
-                className="inline-flex items-center justify-center gap-2 bg-[#6C47FF] hover:bg-violet-500 text-white font-bold px-8 py-4 rounded-xl text-lg transition-colors"
-              >
-                See Our Work <ArrowRight size={18} />
-              </MagneticButton>
-              <MagneticButton
-                href="/services"
-                className="inline-flex items-center justify-center border border-white/20 hover:border-white/50 text-white font-medium px-8 py-4 rounded-xl text-lg backdrop-blur-sm bg-white/5 transition-colors"
-              >
-                How We Work
-              </MagneticButton>
-            </motion.div>
-
-            <motion.div variants={fadeUp} className="pt-4">
-              <p className="text-muted text-sm tracking-widest uppercase opacity-60">
-                Digital Cards · Web Apps · Mobile Apps · Marketing Sites
-              </p>
-            </motion.div>
+              See our work <span aria-hidden="true">→</span>
+            </Link>
+            <Link
+              href="/services"
+              className="inline-flex items-center border border-ink text-ink text-base font-medium px-7 py-4 hover:bg-ink hover:text-paper transition-colors"
+            >
+              How we work
+            </Link>
           </motion.div>
 
-          {/* Right — 3D Logo */}
-          <motion.div
-            className="flex items-center justify-center min-h-[450px] lg:min-h-[600px]"
-            style={{ y: logoY }}
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+          <motion.p
+            variants={rise}
+            className="md:col-span-5 md:col-start-8 text-ash text-lg md:text-xl leading-relaxed text-pretty"
           >
-            <div className="relative w-full h-full min-h-[500px] flex items-center justify-center">
-              {/* Radial glow behind the 3D — softens the empty space */}
-              <div
-                className="absolute inset-0 pointer-events-none"
-                style={{
-                  background:
-                    "radial-gradient(circle at center, rgba(108,71,255,0.12) 0%, rgba(0,217,255,0.05) 50%, transparent 70%)",
-                }}
-              />
-              <div style={{ width: "100%", height: "520px", overflow: "hidden" }}>
-                <Logo3D />
-              </div>
-            </div>
-          </motion.div>
+            We design and develop websites, apps, and digital experiences for
+            founders, brands, and businesses ready to grow.
+          </motion.p>
         </div>
 
-        {/* Scroll indicator */}
+        {/* Disciplines meta strip */}
         <motion.div
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5 }}
+          variants={rise}
+          className="mt-16 md:mt-24 border-t border-rule pt-5 flex flex-wrap items-center gap-x-6 gap-y-2"
         >
-          <span className="text-xs text-muted tracking-widest uppercase">
-            scroll
-          </span>
-          <motion.div
-            className="w-px h-10 bg-gradient-to-b from-muted to-transparent"
-            animate={{ scaleY: [0, 1, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-          />
+          {disciplines.map((d) => (
+            <span key={d} className="eyebrow text-ash">
+              {d}
+            </span>
+          ))}
         </motion.div>
-      </div>
+      </motion.div>
     </section>
   );
 }

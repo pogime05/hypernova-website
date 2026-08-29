@@ -20,8 +20,7 @@ type SubItem = {
   label: string;
   href: string;
   desc: string;
-  icon: ComponentType<{ size?: number | string; style?: React.CSSProperties }>;
-  color: string;
+  icon: ComponentType<{ size?: number | string; className?: string }>;
 };
 
 type NavItem = {
@@ -30,19 +29,18 @@ type NavItem = {
   items?: SubItem[];
 };
 
-// Mega-menu contents. Every sub-item routes to its parent page for this pass
-// (deep-linking to filtered/anchored sections comes in a later content pass).
+// Mega-menu contents.
 const workItems: SubItem[] = [
-  { label: "Websites", href: "/work?category=website", desc: "Marketing sites & landing pages", icon: Globe, color: "#A855F7" },
-  { label: "Apps", href: "/work?category=app", desc: "Web apps, dashboards & SaaS", icon: LayoutDashboard, color: "#00D9FF" },
-  { label: "Digital Cards", href: "/work?category=cards", desc: "NFC + QR smart cards", icon: CreditCard, color: "#6C47FF" },
+  { label: "Websites", href: "/work?category=website", desc: "Marketing sites & landing pages", icon: Globe },
+  { label: "Apps", href: "/work?category=app", desc: "Web apps, dashboards & SaaS", icon: LayoutDashboard },
+  { label: "Digital Cards", href: "/work?category=cards", desc: "NFC + QR smart cards", icon: CreditCard },
 ];
 
 const servicesItems: SubItem[] = [
-  { label: "Digital Cards", href: "/services#digital-cards", desc: "Tap-to-share smart cards", icon: CreditCard, color: "#6C47FF" },
-  { label: "Web Apps", href: "/services#web-apps", desc: "Full-stack platforms & tools", icon: LayoutDashboard, color: "#00D9FF" },
-  { label: "AI Services", href: "/services#ai-services", desc: "Chatbots, copilots & RAG", icon: Sparkles, color: "#A855F7" },
-  { label: "Mobile Apps", href: "/services#mobile-apps", desc: "iOS & Android, cross-platform", icon: Smartphone, color: "#10B981" },
+  { label: "Digital Cards", href: "/services#digital-cards", desc: "Tap-to-share smart cards", icon: CreditCard },
+  { label: "Web Apps", href: "/services#web-apps", desc: "Full-stack platforms & tools", icon: LayoutDashboard },
+  { label: "AI Services", href: "/services#ai-services", desc: "Chatbots, copilots & RAG", icon: Sparkles },
+  { label: "Mobile Apps", href: "/services#mobile-apps", desc: "iOS & Android, cross-platform", icon: Smartphone },
 ];
 
 const navItems: NavItem[] = [
@@ -53,14 +51,13 @@ const navItems: NavItem[] = [
   { label: "Contact", href: "/contact" },
 ];
 
-/** The shared sliding active-route indicator (one instance via layoutId). */
+/** Shared sliding active-route indicator (one instance via layoutId). */
 function ActiveUnderline() {
   return (
     <motion.span
       layoutId="navUnderline"
-      className="absolute -bottom-1.5 left-0 right-0 h-0.5 rounded-full"
-      style={{ background: "linear-gradient(90deg, #6C47FF, #00D9FF)" }}
-      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+      className="absolute -bottom-1.5 left-0 right-0 h-px bg-accent"
+      transition={{ type: "spring", stiffness: 380, damping: 32 }}
     />
   );
 }
@@ -73,12 +70,12 @@ export default function Nav() {
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
 
   useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 30);
+    const handler = () => setScrolled(window.scrollY > 20);
+    handler();
     window.addEventListener("scroll", handler);
     return () => window.removeEventListener("scroll", handler);
   }, []);
 
-  // Close every menu whenever the route changes.
   useEffect(() => {
     setOpenMega(null);
     setMenuOpen(false);
@@ -89,54 +86,30 @@ export default function Nav() {
 
   return (
     <>
-      <motion.nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled ? "glass" : "bg-transparent"
+      <nav
+        className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${
+          scrolled || menuOpen
+            ? "bg-paper border-b border-rule"
+            : "bg-transparent border-b border-transparent"
         }`}
-        initial={{ y: -80, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       >
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 group" aria-label="HyperNova Technologies — home">
-            <motion.div
-              animate={{
-                // Subtle accent halo behind the mark — capped at 6px blur and
-                // kept translucent so it never washes out the logo itself.
-                filter: [
-                  "drop-shadow(0 0 2px rgba(108,71,255,0.35))",
-                  "drop-shadow(0 0 6px rgba(108,71,255,0.55))",
-                  "drop-shadow(0 0 2px rgba(108,71,255,0.35))",
-                ],
-              }}
-              transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" as const }}
-            >
-              <Image
-                src="/logo.png"
-                alt="HyperNova Technologies"
-                height={44}
-                width={44}
-                className="h-11 w-11 object-contain opacity-100"
-              />
-            </motion.div>
-            <motion.span
-              className="font-orbitron font-bold text-sm md:text-base tracking-wider uppercase"
-              animate={{
-                backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-              }}
-              transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-              style={{
-                background:
-                  "linear-gradient(90deg, #6C47FF, #00D9FF, #a855f7, #6C47FF)",
-                backgroundSize: "200% 200%",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-              }}
-            >
+        <div className="max-w-8xl mx-auto px-6 md:px-10 h-[68px] flex items-center justify-between">
+          {/* Logo + wordmark */}
+          <Link
+            href="/"
+            className="flex items-center gap-2.5 group"
+            aria-label="HyperNova Technologies — home"
+          >
+            <Image
+              src="/logo.png"
+              alt="HyperNova Technologies"
+              height={34}
+              width={34}
+              className="h-[34px] w-[34px] object-contain"
+            />
+            <span className="font-orbitron font-bold text-[13px] md:text-sm tracking-[0.12em] uppercase text-ink">
               HyperNova Technologies
-            </motion.span>
+            </span>
           </Link>
 
           {/* Desktop links */}
@@ -154,8 +127,8 @@ export default function Nav() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`relative text-sm font-medium transition-colors duration-200 ${
-                    isActive(item.href) ? "text-white" : "text-muted hover:text-white"
+                  className={`relative text-sm transition-colors duration-200 ${
+                    isActive(item.href) ? "text-ink font-medium" : "text-ash hover:text-ink"
                   }`}
                 >
                   {item.label}
@@ -167,19 +140,18 @@ export default function Nav() {
 
           {/* CTA */}
           <div className="hidden md:block">
-            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center bg-accent text-white font-semibold px-5 py-2.5 rounded-lg hover:bg-[#7c5aff] transition-colors shadow-lg shadow-accent/20"
-              >
-                Start a Project →
-              </Link>
-            </motion.div>
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-2 bg-ink text-paper text-sm font-medium px-5 py-2.5 hover:bg-accent transition-colors"
+            >
+              Start a project
+              <span aria-hidden="true">→</span>
+            </Link>
           </div>
 
           {/* Mobile burger */}
           <button
-            className="md:hidden text-muted hover:text-primary transition-colors"
+            className="md:hidden text-ink"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Toggle menu"
             aria-expanded={menuOpen}
@@ -187,37 +159,21 @@ export default function Nav() {
             {menuOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
-      </motion.nav>
+      </nav>
 
       {/* Mobile menu */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            className="fixed inset-0 z-40 md:hidden"
+            className="fixed inset-0 top-[68px] z-40 md:hidden bg-paper"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
           >
-            <div
-              className="absolute inset-0 bg-bg/80 backdrop-blur-md"
-              onClick={() => setMenuOpen(false)}
-            />
-            <motion.div
-              className="absolute top-20 left-4 right-4 glass-card rounded-2xl p-6 flex flex-col gap-1 max-h-[80vh] overflow-y-auto"
-              initial={{ opacity: 0, y: -20, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -20, scale: 0.95 }}
-              transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-            >
-              {navItems.map((item, i) => (
-                <motion.div
-                  key={item.href}
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.06, duration: 0.25 }}
-                  className="border-b border-white/[0.06] last:border-0"
-                >
+            <div className="px-6 py-4 flex flex-col max-h-[calc(100vh-68px)] overflow-y-auto">
+              {navItems.map((item) => (
+                <div key={item.href} className="border-b border-rule">
                   {item.items ? (
                     <MobileAccordion
                       item={item}
@@ -233,31 +189,24 @@ export default function Nav() {
                   ) : (
                     <Link
                       href={item.href}
-                      className={`block text-lg font-medium py-3 transition-colors ${
-                        isActive(item.href) ? "text-accent" : "text-primary hover:text-accent"
+                      className={`block text-lg py-4 transition-colors ${
+                        isActive(item.href) ? "text-accent font-medium" : "text-ink"
                       }`}
                       onClick={() => setMenuOpen(false)}
                     >
                       {item.label}
                     </Link>
                   )}
-                </motion.div>
+                </div>
               ))}
-              <motion.div
-                className="pt-4"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.3 }}
+              <Link
+                href="/contact"
+                onClick={() => setMenuOpen(false)}
+                className="mt-6 flex items-center justify-center w-full bg-ink text-paper font-medium px-5 py-3.5 hover:bg-accent transition-colors"
               >
-                <Link
-                  href="/contact"
-                  onClick={() => setMenuOpen(false)}
-                  className="flex items-center justify-center w-full bg-accent text-white font-semibold px-5 py-3 rounded-lg hover:bg-[#7c5aff] transition-colors shadow-lg shadow-accent/20"
-                >
-                  Start a Project →
-                </Link>
-              </motion.div>
-            </motion.div>
+                Start a project →
+              </Link>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -283,7 +232,6 @@ function MegaItem({
       className="relative"
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
-      // Close when keyboard focus leaves the whole group (tabbing out).
       onBlur={(e) => {
         if (!e.currentTarget.contains(e.relatedTarget as Node)) setOpen(false);
       }}
@@ -300,8 +248,8 @@ function MegaItem({
         aria-expanded={open}
         onFocus={() => setOpen(true)}
         onClick={() => setOpen(!open)}
-        className={`relative flex items-center gap-1 text-sm font-medium transition-colors duration-200 ${
-          active || open ? "text-white" : "text-muted hover:text-white"
+        className={`relative flex items-center gap-1 text-sm transition-colors duration-200 ${
+          active || open ? "text-ink font-medium" : "text-ash hover:text-ink"
         }`}
       >
         {item.label}
@@ -317,47 +265,36 @@ function MegaItem({
           <motion.div
             role="menu"
             aria-label={item.label}
-            initial={{ opacity: 0, y: -8 }}
+            initial={{ opacity: 0, y: -6 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute left-1/2 -translate-x-1/2 top-full pt-3 z-50"
+            exit={{ opacity: 0, y: -6 }}
+            transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
+            className="absolute left-1/2 -translate-x-1/2 top-full pt-4 z-50"
           >
-            <div className="glass-card rounded-2xl p-2 w-[300px] border border-white/10 shadow-2xl shadow-black/50">
-              {item.items!.map((sub, i) => {
+            <div className="w-[320px] bg-paper border border-rule">
+              {item.items!.map((sub) => {
                 const Icon = sub.icon;
                 return (
-                  <motion.div
+                  <Link
                     key={sub.label}
-                    initial={{ opacity: 0, x: -6 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.04 + i * 0.04, duration: 0.2 }}
+                    href={sub.href}
+                    role="menuitem"
+                    onClick={() => setOpen(false)}
+                    className="group/mega flex items-start gap-3 p-4 border-b border-rule last:border-0 hover:bg-ink/[0.03] transition-colors"
                   >
-                    <Link
-                      href={sub.href}
-                      role="menuitem"
-                      onClick={() => setOpen(false)}
-                      className="group/mega flex items-start gap-3 rounded-xl p-3 hover:bg-white/[0.05] transition-colors"
-                    >
-                      <span
-                        className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg transition-all"
-                        style={{
-                          background: `${sub.color}18`,
-                          border: `1px solid ${sub.color}30`,
-                        }}
-                      >
-                        <Icon size={17} style={{ color: sub.color }} />
+                    <Icon
+                      size={18}
+                      className="mt-0.5 shrink-0 text-ash group-hover/mega:text-accent transition-colors"
+                    />
+                    <span className="flex flex-col">
+                      <span className="text-sm font-medium text-ink">
+                        {sub.label}
                       </span>
-                      <span className="flex flex-col">
-                        <span className="text-sm font-semibold text-primary group-hover/mega:text-white transition-colors">
-                          {sub.label}
-                        </span>
-                        <span className="text-xs text-muted leading-snug">
-                          {sub.desc}
-                        </span>
+                      <span className="text-xs text-ash leading-snug mt-0.5">
+                        {sub.desc}
                       </span>
-                    </Link>
-                  </motion.div>
+                    </span>
+                  </Link>
                 );
               })}
             </div>
@@ -389,8 +326,8 @@ function MobileAccordion({
         type="button"
         onClick={toggle}
         aria-expanded={expanded}
-        className={`flex w-full items-center justify-between py-3 text-lg font-medium transition-colors ${
-          active ? "text-accent" : "text-primary"
+        className={`flex w-full items-center justify-between py-4 text-lg transition-colors ${
+          active ? "text-accent font-medium" : "text-ink"
         }`}
       >
         {item.label}
@@ -405,10 +342,10 @@ function MobileAccordion({
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
             className="overflow-hidden"
           >
-            <div className="flex flex-col gap-1 pb-3 pl-2">
+            <div className="flex flex-col pb-2">
               {item.items!.map((sub) => {
                 const Icon = sub.icon;
                 return (
@@ -416,10 +353,10 @@ function MobileAccordion({
                     key={sub.label}
                     href={sub.href}
                     onClick={onNavigate}
-                    className="flex items-center gap-3 rounded-lg px-2 py-2 text-muted hover:text-primary hover:bg-white/[0.04] transition-colors"
+                    className="flex items-center gap-3 py-2.5 pl-1 text-ash hover:text-ink transition-colors"
                   >
-                    <Icon size={16} style={{ color: sub.color }} />
-                    <span className="text-sm font-medium">{sub.label}</span>
+                    <Icon size={16} />
+                    <span className="text-sm">{sub.label}</span>
                   </Link>
                 );
               })}

@@ -1,9 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { Reveal } from "./ui/reveal";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -54,114 +52,81 @@ const socials = [
 
 export default function Footer() {
   return (
-    <footer className="relative border-t border-white/[0.06]">
-      <div className="max-w-7xl mx-auto px-6 pt-20 pb-10">
-        <div className="grid md:grid-cols-3 gap-12 mb-12">
+    <footer className="relative border-t border-rule bg-paper">
+      <div className="max-w-8xl mx-auto px-6 md:px-10 pt-20 pb-10">
+        <div className="grid md:grid-cols-12 gap-12 mb-16">
           {/* Brand */}
-          <Reveal className="flex flex-col gap-4">
-            <motion.div
-              className="w-fit mb-4"
-              animate={{
-                filter: [
-                  "drop-shadow(0 0 4px #6C47FF)",
-                  "drop-shadow(0 0 16px #6C47FF)",
-                  "drop-shadow(0 0 4px #6C47FF)",
-                ],
-              }}
-              transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" as const }}
-            >
+          <div className="md:col-span-5 flex flex-col gap-5">
+            <div className="flex items-center gap-2.5">
               <Image
                 src="/logo.png"
                 alt="HyperNova Technologies"
-                height={64}
-                width={256}
-                className="h-16 w-auto object-contain"
-                style={{ height: "auto" }}
+                height={34}
+                width={34}
+                className="h-[34px] w-[34px] object-contain"
               />
-            </motion.div>
-            <motion.span
-              className="font-orbitron font-bold text-sm tracking-wider uppercase w-fit"
-              animate={{
-                backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-              }}
-              transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-              style={{
-                background:
-                  "linear-gradient(90deg, #6C47FF, #00D9FF, #a855f7, #6C47FF)",
-                backgroundSize: "200% 200%",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-              }}
-            >
-              HyperNova Technologies
-            </motion.span>
-            <p className="text-sm text-muted leading-relaxed max-w-xs">
-              We build digital things that actually work. Boutique studio, production quality.
-            </p>
-            <div className="flex items-center gap-2 mt-1">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+              <span className="font-orbitron font-bold text-sm tracking-[0.12em] uppercase text-ink">
+                HyperNova Technologies
               </span>
-              <span className="text-xs text-muted">Available for projects</span>
             </div>
-          </Reveal>
+            <p className="text-ash text-base leading-relaxed max-w-xs">
+              We build digital things that actually work. Boutique studio,
+              production quality.
+            </p>
+            <div className="flex items-center gap-2 eyebrow text-ash">
+              <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+              Available for projects
+            </div>
+          </div>
 
           {/* Nav */}
-          <Reveal delay={0.1} className="flex flex-col gap-3">
-            <p className="text-xs text-muted tracking-widest uppercase font-semibold mb-1">
-              Navigate
-            </p>
+          <div className="md:col-span-3 flex flex-col gap-3">
+            <p className="eyebrow text-ash mb-2">Navigate</p>
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-sm text-muted hover:text-primary transition-colors w-fit"
+                className="text-sm text-ink hover:text-accent transition-colors w-fit"
               >
                 {link.label}
               </Link>
             ))}
-          </Reveal>
+          </div>
 
-          {/* Socials */}
-          <Reveal delay={0.2} className="flex flex-col gap-4">
-            <p className="text-xs text-muted tracking-widest uppercase font-semibold">
-              Find us
-            </p>
-            <div className="flex gap-3">
+          {/* Contact + socials */}
+          <div className="md:col-span-4 flex flex-col gap-4">
+            <p className="eyebrow text-ash mb-1">Find us</p>
+            <a
+              href="mailto:pogime05@gmail.com"
+              className="text-sm text-ink hover:text-accent transition-colors w-fit"
+            >
+              pogime05@gmail.com
+            </a>
+            <div className="flex gap-2 mt-1">
               {socials.map(({ svg, href, label }) => (
-                <motion.a
+                <a
                   key={label}
                   href={href}
                   aria-label={label}
-                  className="w-9 h-9 rounded-lg bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-muted hover:text-primary hover:border-white/20 hover:bg-white/[0.07] transition-all"
-                  whileHover={{ y: -2 }}
-                  transition={{ duration: 0.15 }}
+                  className="w-9 h-9 border border-rule flex items-center justify-center text-ash hover:text-accent hover:border-accent transition-colors"
                 >
                   {svg}
-                </motion.a>
+                </a>
               ))}
             </div>
-            <a
-              href="mailto:hello@hypernovatech.co"
-              className="text-sm text-muted hover:text-accent transition-colors"
-            >
-              hello@hypernovatech.co
-            </a>
-          </Reveal>
+          </div>
         </div>
 
         {/* Bottom bar */}
-        <div className="pt-8 border-t border-white/[0.06] flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-xs text-muted">
-            © 2025 <span className="font-orbitron tracking-wider uppercase">HyperNova Technologies</span>. Built with intent.
+        <div className="pt-8 border-t border-rule flex flex-col sm:flex-row items-center justify-between gap-3">
+          <p className="eyebrow text-ash normal-case tracking-normal">
+            © 2025 HyperNova Technologies. Built with intent.
           </p>
-          <div className="flex gap-4">
-            <a href="#" className="text-xs text-muted hover:text-primary transition-colors">
+          <div className="flex gap-6">
+            <a href="#" className="text-xs text-ash hover:text-ink transition-colors">
               Privacy
             </a>
-            <a href="#" className="text-xs text-muted hover:text-primary transition-colors">
+            <a href="#" className="text-xs text-ash hover:text-ink transition-colors">
               Terms
             </a>
           </div>

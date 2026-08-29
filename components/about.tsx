@@ -1,23 +1,21 @@
 "use client";
 
 import Image from "next/image";
-import { MessageSquare, Rocket, Code2 } from "lucide-react";
 import { Reveal } from "./ui/reveal";
-import { SectionGlow } from "./ui/section-glow";
 
 const principles = [
   {
-    icon: MessageSquare,
+    number: "01",
     title: "Clear communication",
     desc: "Direct updates, plain language, and one person who actually knows your project — no account-manager telephone game.",
   },
   {
-    icon: Rocket,
+    number: "02",
     title: "Fast delivery",
     desc: "Short sprints and live progress. You see real, working software early and often instead of waiting months for a reveal.",
   },
   {
-    icon: Code2,
+    number: "03",
     title: "You own the code",
     desc: "Your project, your repo, your accounts. No lock-in, no rented platforms holding your business hostage.",
   },
@@ -25,66 +23,39 @@ const principles = [
 
 export default function About() {
   return (
-    <section className="relative pt-40 pb-28 overflow-hidden">
-      <SectionGlow
-        glows={[
-          { color: "#6C47FF", opacity: 0.06, top: "-4%", left: "-6%", size: 620 },
-          { color: "#00D9FF", opacity: 0.05, bottom: "-10%", right: "-6%", size: 560 },
-        ]}
-      />
-      <div className="max-w-6xl mx-auto px-6 relative">
+    <section className="relative pt-32 md:pt-40 pb-24 md:pb-28 bg-paper">
+      <div className="max-w-8xl mx-auto px-6 md:px-10">
         {/* Heading */}
         <Reveal>
-          <p className="text-xs text-accent tracking-widest uppercase font-semibold mb-4">
-            Who&apos;s behind it
-          </p>
-          <h1 className="font-display font-extrabold text-4xl md:text-6xl text-primary leading-[1.05] max-w-3xl">
+          <p className="eyebrow text-ash mb-6">Who&apos;s behind it</p>
+          <h1
+            className="font-display font-extrabold text-ink tracking-[-0.02em] leading-[0.95] max-w-4xl"
+            style={{ fontSize: "clamp(2.5rem, 6.5vw, 5.5rem)" }}
+          >
             Built by an independent studio, not a{" "}
-            <span className="bg-gradient-to-r from-[#6C47FF] to-[#00D9FF] bg-clip-text text-transparent">
-              faceless agency.
-            </span>
+            <span className="text-accent">faceless agency.</span>
           </h1>
         </Reveal>
 
-        <div className="mt-14 grid md:grid-cols-[0.85fr_1.15fr] gap-12 items-start">
-          {/* Founder portrait — logo mark stands in until there's a real photo */}
-          {/* TODO: founder photo */}
-          <Reveal>
-            <div className="relative aspect-[4/5] rounded-2xl glass-card overflow-hidden flex items-center justify-center">
-              <div
-                aria-hidden="true"
-                className="absolute inset-0 opacity-[0.07]"
-                style={{
-                  backgroundImage: `linear-gradient(rgba(255,255,255,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.15) 1px, transparent 1px)`,
-                  backgroundSize: "28px 28px",
-                }}
+        <div className="mt-14 md:mt-20 grid md:grid-cols-12 gap-10 md:gap-16 items-start">
+          {/* Studio photo */}
+          <Reveal className="md:col-span-5">
+            <div className="relative aspect-[4/5] overflow-hidden border border-rule bg-ink">
+              <Image
+                src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1200&q=70"
+                alt="Two people building software together at a studio workstation"
+                fill
+                sizes="(max-width: 768px) 100vw, 40vw"
+                className="object-cover"
               />
-              <div
-                aria-hidden="true"
-                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full blur-[80px]"
-                style={{ background: "rgba(108,71,255,0.18)" }}
-              />
-              <div className="relative flex flex-col items-center gap-4">
-                <Image
-                  src="/logo.png"
-                  alt="HyperNova Technologies"
-                  width={96}
-                  height={96}
-                  className="w-24 h-24 object-contain drop-shadow-[0_0_18px_rgba(108,71,255,0.5)]"
-                  style={{ height: "auto" }}
-                />
-                <span className="font-orbitron text-[11px] tracking-widest uppercase text-muted">
-                  HyperNova Technologies
-                </span>
-              </div>
             </div>
+            <p className="eyebrow text-ash mt-4">HyperNova Technologies — in the build</p>
           </Reveal>
 
           {/* Bio + principles */}
-          <div className="flex flex-col gap-10">
+          <div className="md:col-span-7 flex flex-col gap-12">
             <Reveal delay={0.1}>
-              {/* TODO: refine bio */}
-              <p className="text-muted text-lg md:text-xl leading-relaxed">
+              <p className="text-ink text-xl md:text-2xl leading-relaxed text-pretty">
                 HyperNova Technologies is a hands-on independent studio building
                 websites, apps, and AI for founders and businesses. We keep teams
                 small and ownership direct — the same person who scopes your
@@ -94,31 +65,26 @@ export default function About() {
             </Reveal>
 
             <Reveal delay={0.18}>
-              <p className="text-xs text-accent tracking-widest uppercase font-semibold mb-5">
-                What you can expect
-              </p>
-              <div className="flex flex-col gap-3">
-                {principles.map((p) => {
-                  const Icon = p.icon;
-                  return (
-                    <div
-                      key={p.title}
-                      className="glass-card rounded-xl p-5 flex items-start gap-4 hover:border-white/15 transition-colors"
-                    >
-                      <span className="shrink-0 w-10 h-10 rounded-lg bg-accent/12 border border-accent/25 flex items-center justify-center">
-                        <Icon size={18} className="text-accent" />
-                      </span>
-                      <div>
-                        <h3 className="font-display font-bold text-lg text-primary mb-1">
-                          {p.title}
-                        </h3>
-                        <p className="text-muted text-sm leading-relaxed">
-                          {p.desc}
-                        </p>
-                      </div>
+              <p className="eyebrow text-ash mb-2">What you can expect</p>
+              <div className="border-t border-rule">
+                {principles.map((p) => (
+                  <div
+                    key={p.title}
+                    className="group border-b border-rule py-6 grid grid-cols-12 gap-4 items-baseline"
+                  >
+                    <span className="col-span-2 font-mono text-sm text-ash group-hover:text-accent transition-colors">
+                      {p.number}
+                    </span>
+                    <div className="col-span-10">
+                      <h3 className="font-display font-bold text-xl md:text-2xl text-ink mb-1.5">
+                        {p.title}
+                      </h3>
+                      <p className="text-ash text-base leading-relaxed max-w-md">
+                        {p.desc}
+                      </p>
                     </div>
-                  );
-                })}
+                  </div>
+                ))}
               </div>
             </Reveal>
           </div>
