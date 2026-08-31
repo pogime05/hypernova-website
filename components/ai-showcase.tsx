@@ -111,8 +111,8 @@ export default function AIShowcase({ preview = false }: { preview?: boolean }) {
         {preview ? "(03) Signature capability" : "Signature capability"}
       </p>
       <h2
-        className="font-display font-extrabold text-ink tracking-[-0.02em] leading-[0.95]"
-        style={{ fontSize: "clamp(2.25rem, 5.5vw, 4.5rem)" }}
+        className="font-display font-extrabold text-ink tracking-[-0.02em] leading-[0.98]"
+        style={{ fontSize: "clamp(2rem, 4.5vw, 3.75rem)" }}
       >
         Intelligence,
         <br />
@@ -189,10 +189,10 @@ export default function AIShowcase({ preview = false }: { preview?: boolean }) {
   return (
     <section
       id="ai"
-      className="py-24 md:py-32 relative border-t border-rule bg-paper"
+      className="py-16 md:py-20 relative border-t border-rule bg-paper"
     >
       <div className="max-w-8xl mx-auto px-6 md:px-10">
-        <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-start">
           {/* copy */}
           <div className="lg:col-span-5">
             <ClipReveal>{heading}</ClipReveal>
@@ -202,19 +202,17 @@ export default function AIShowcase({ preview = false }: { preview?: boolean }) {
               and tool-calling that takes real actions.
             </p>
 
-            {!preview && (
-              <div className="mt-8 border-t border-rule">
-                {CAPABILITIES.map((c) => (
-                  <div
-                    key={c}
-                    className="flex items-center gap-3 border-b border-rule py-3"
-                  >
-                    <span className="font-mono text-xs text-accent">+</span>
-                    <span className="text-sm text-ink">{c}</span>
-                  </div>
-                ))}
-              </div>
-            )}
+            <div className="mt-8 border-t border-rule">
+              {CAPABILITIES.map((c) => (
+                <div
+                  key={c}
+                  className="flex items-center gap-3 border-b border-rule py-3"
+                >
+                  <span className="font-mono text-xs text-accent">+</span>
+                  <span className="text-sm text-ink">{c}</span>
+                </div>
+              ))}
+            </div>
 
             {preview && (
               <Link

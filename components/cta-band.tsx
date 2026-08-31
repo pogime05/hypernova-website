@@ -15,7 +15,7 @@ export default function CTABand({
   sub?: string;
 }) {
   return (
-    <section className="relative bg-ink text-paper py-24 md:py-32">
+    <section className="relative bg-ink text-paper py-20 md:py-28">
       <div className="max-w-8xl mx-auto px-6 md:px-10">
         <Reveal>
           <div className="grid md:grid-cols-12 gap-8 items-end">

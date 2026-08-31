@@ -42,12 +42,12 @@ export default function Process() {
   return (
     <section
       id="process"
-      className="py-24 md:py-32 relative border-t border-rule bg-paper"
+      className="py-16 md:py-20 relative border-t border-rule bg-paper"
       ref={ref}
     >
       <div className="max-w-8xl mx-auto px-6 md:px-10">
         {/* Header */}
-        <ClipReveal className="mb-12 md:mb-16 max-w-2xl">
+        <ClipReveal className="mb-8 md:mb-10 max-w-2xl">
           <p className="eyebrow text-ash mb-5">Our approach</p>
           <h2
             className="font-display font-extrabold text-ink tracking-[-0.02em] leading-[0.95]"

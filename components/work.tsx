@@ -137,8 +137,8 @@ export default function Work({
         {preview ? "(04) Selected work" : "Selected work"}
       </p>
       <h2
-        className="font-display font-extrabold text-ink tracking-[-0.02em] leading-[0.95]"
-        style={{ fontSize: "clamp(2.25rem, 5.5vw, 4.5rem)" }}
+        className="font-display font-extrabold text-ink tracking-[-0.02em] leading-[0.92]"
+        style={{ fontSize: "clamp(2.5rem, 6.5vw, 5.5rem)" }}
       >
         Work that speaks.
       </h2>
@@ -148,11 +148,11 @@ export default function Work({
   return (
     <section
       id="work"
-      className="py-24 md:py-32 relative border-t border-rule bg-paper"
+      className="py-16 md:py-20 relative border-t border-rule bg-paper"
     >
       <div className="max-w-8xl mx-auto px-6 md:px-10">
         {/* Header */}
-        <div className="flex flex-wrap items-end justify-between gap-6 mb-12 md:mb-16">
+        <div className="flex flex-wrap items-end justify-between gap-6 mb-8 md:mb-10">
           {preview ? <ClipReveal>{heading}</ClipReveal> : <div className="rise">{heading}</div>}
           {preview ? (
             <Link
@@ -174,7 +174,7 @@ export default function Work({
 
         {/* Filter pills (full page only) */}
         {!preview && (
-          <div className="rise flex flex-wrap gap-x-6 gap-y-2 mb-12 border-b border-rule pb-5" style={{ animationDelay: "0.08s" }}>
+          <div className="rise flex flex-wrap gap-x-6 gap-y-2 mb-10 border-b border-rule pb-5" style={{ animationDelay: "0.08s" }}>
             {filters.map((f) => {
               const active = activeCategory === f.value;
               return (
@@ -193,34 +193,53 @@ export default function Work({
           </div>
         )}
 
-        {/* Editorial project grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-14 md:gap-y-20">
-          {visible.map((project, i) =>
-            preview ? (
-              <motion.div
-                key={project.name}
-                initial={reduced ? false : { opacity: 0, y: 26 }}
-                whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.5, delay: (i % 2) * 0.08, ease: [0.22, 1, 0.36, 1] }}
-              >
-                <ProjectCard project={project} />
-              </motion.div>
-            ) : (
-              <div
-                key={project.name}
-                className="rise"
-                style={{ animationDelay: `${0.1 + (i % 2) * 0.08}s` }}
-              >
-                <ProjectCard project={project} />
-              </div>
-            )
-          )}
-        </div>
+        {/* Featured — first project runs full-bleed to break the metronome */}
+        {visible[0] &&
+          (preview ? (
+            <motion.div
+              initial={reduced ? false : { opacity: 0, y: 26 }}
+              whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <FeaturedCard project={visible[0]} />
+            </motion.div>
+          ) : (
+            <div className="rise" style={{ animationDelay: "0.1s" }}>
+              <FeaturedCard project={visible[0]} />
+            </div>
+          ))}
+
+        {/* The rest — 2-up editorial grid */}
+        {visible.length > 1 && (
+          <div className="mt-12 md:mt-16 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-14 md:gap-y-16">
+            {visible.slice(1).map((project, i) =>
+              preview ? (
+                <motion.div
+                  key={project.name}
+                  initial={reduced ? false : { opacity: 0, y: 26 }}
+                  whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.2 }}
+                  transition={{ duration: 0.5, delay: (i % 2) * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  <ProjectCard project={project} />
+                </motion.div>
+              ) : (
+                <div
+                  key={project.name}
+                  className="rise"
+                  style={{ animationDelay: `${0.1 + (i % 2) * 0.08}s` }}
+                >
+                  <ProjectCard project={project} />
+                </div>
+              )
+            )}
+          </div>
+        )}
 
         {/* Also delivered (full page only) */}
         {!preview && (
-          <div className="mt-20 border-t border-rule pt-10">
+          <div className="mt-16 border-t border-rule pt-10">
             <p className="eyebrow text-ash mb-5">Also delivered</p>
             <div className="flex flex-wrap gap-x-6 gap-y-2">
               {alsoDelivered.map((item) => (
@@ -233,6 +252,97 @@ export default function Work({
         )}
       </div>
     </section>
+  );
+}
+
+/**
+ * Featured project — the first item, given a full-bleed cinematic image that
+ * breaks the max-w-8xl container, with an asymmetric meta row beneath. Breaks
+ * the uniform 2-up metronome and provides the page's full-bleed moment.
+ */
+function FeaturedCard({ project }: { project: Project }) {
+  const isCards = !!project.samples;
+
+  return (
+    <article className="group">
+      {/* Full-bleed visual */}
+      <div className="relative left-1/2 -translate-x-1/2 w-screen">
+        <div className="relative aspect-[3/2] sm:aspect-[2/1] md:aspect-[21/8] border-y border-rule bg-ink overflow-hidden transition-colors duration-300 group-hover:border-accent">
+          {project.image ? (
+            <Image
+              src={IMG(project.image)}
+              alt={project.alt ?? project.name}
+              fill
+              sizes="100vw"
+              priority
+              className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+            />
+          ) : (
+            <div className="absolute inset-0 flex items-end">
+              <div className="max-w-8xl w-full mx-auto px-6 md:px-10 pb-8">
+                <span className="font-display font-bold text-paper text-4xl md:text-6xl leading-none">
+                  {project.name}
+                </span>
+              </div>
+            </div>
+          )}
+          {(project.url || isCards) && (
+            <span className="absolute top-6 left-6 md:left-10 inline-flex items-center gap-1.5 bg-paper px-2.5 py-1 eyebrow text-ink">
+              <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+              Live · Featured
+            </span>
+          )}
+        </div>
+      </div>
+
+      {/* Asymmetric meta — back inside the container */}
+      <div className="mt-6 md:mt-8 grid md:grid-cols-12 gap-x-8 gap-y-4 items-start">
+        <div className="md:col-span-7">
+          <div className="flex items-center gap-4 mb-3">
+            <span className="eyebrow text-ash">{project.categoryLabel}</span>
+            <span className="eyebrow text-ash">{project.stack.join(" · ")}</span>
+          </div>
+          <h3 className="font-display font-bold text-3xl md:text-5xl text-ink leading-[1.02] tracking-tight transition-colors duration-200 group-hover:text-accent">
+            {project.name}
+          </h3>
+        </div>
+        <div className="md:col-span-5">
+          <p className="text-ash text-base md:text-lg leading-relaxed">
+            {project.description}
+          </p>
+          {isCards ? (
+            <div className="mt-4 flex flex-wrap gap-2">
+              {project.samples!.map((s) => (
+                <a
+                  key={s.name}
+                  href={s.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 text-sm px-3 py-1.5 border border-rule text-ink hover:border-accent hover:text-accent transition-colors"
+                >
+                  {s.name} <ArrowUpRight size={13} />
+                </a>
+              ))}
+            </div>
+          ) : (
+            project.url && (
+              <a
+                href={project.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-accent w-fit"
+              >
+                View project
+                <ArrowUpRight
+                  size={15}
+                  className="transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-0.5"
+                />
+              </a>
+            )
+          )}
+        </div>
+      </div>
+    </article>
   );
 }
 

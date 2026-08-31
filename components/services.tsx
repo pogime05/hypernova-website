@@ -60,7 +60,7 @@ function ServiceCard({
     <div
       id={service.id}
       style={{ scrollMarginTop: "96px" }}
-      className="group border border-rule bg-paper flex flex-col h-full"
+      className="group border border-rule bg-paper flex flex-col"
     >
       <div className="p-5 md:p-6 border-b border-rule">
         <div className="flex items-center justify-between mb-3">
@@ -82,7 +82,7 @@ function ServiceCard({
           {service.description}
         </p>
       </div>
-      <div className="p-5 md:p-6 mt-auto">
+      <div className="p-5 md:p-6">
         <Visual />
       </div>
     </div>
@@ -109,11 +109,11 @@ export default function Services({ preview = false }: { preview?: boolean }) {
   return (
     <section
       id="services"
-      className="py-24 md:py-32 relative border-t border-rule bg-paper"
+      className="py-16 md:py-20 relative border-t border-rule bg-paper"
     >
       <div className="max-w-8xl mx-auto px-6 md:px-10">
         {/* Header */}
-        <div className="flex flex-wrap items-end justify-between gap-6 mb-12 md:mb-16">
+        <div className="flex flex-wrap items-end justify-between gap-6 mb-8 md:mb-10">
           {/* Above-the-fold on /services → CSS load entrance; below-the-fold
               preview on Home → clip reveal on scroll. */}
           {preview ? <ClipReveal>{heading}</ClipReveal> : <div className="rise">{heading}</div>}
@@ -138,7 +138,7 @@ export default function Services({ preview = false }: { preview?: boolean }) {
         </div>
 
         {/* Cards with live product UI */}
-        <div className="grid md:grid-cols-2 gap-5 md:gap-6">
+        <div className="grid md:grid-cols-2 gap-5 md:gap-6 items-start">
           {services.map((service, i) =>
             preview ? (
               <motion.div

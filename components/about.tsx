@@ -23,7 +23,7 @@ const principles = [
 
 export default function About() {
   return (
-    <section className="relative pt-32 md:pt-40 pb-24 md:pb-28 bg-paper">
+    <section className="relative pt-28 md:pt-32 pb-16 md:pb-20 bg-paper">
       <div className="max-w-8xl mx-auto px-6 md:px-10">
         {/* Heading — CSS load entrance (above the fold, never JS-gated) */}
         <div className="rise">

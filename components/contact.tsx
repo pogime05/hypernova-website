@@ -58,7 +58,7 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="pt-32 md:pt-40 pb-24 md:pb-28 relative bg-paper"
+      className="pt-28 md:pt-32 pb-16 md:pb-20 relative bg-paper"
     >
       <div className="max-w-8xl mx-auto px-6 md:px-10">
         <div className="grid md:grid-cols-12 gap-12 md:gap-16">
