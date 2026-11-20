@@ -138,7 +138,7 @@ export default function Work({
       </p>
       <h2
         className="font-display font-extrabold text-ink tracking-[-0.02em] leading-[0.92]"
-        style={{ fontSize: "clamp(2.5rem, 6.5vw, 5.5rem)" }}
+        style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)" }}
       >
         Work that speaks.
       </h2>
@@ -280,7 +280,7 @@ function FeaturedCard({ project }: { project: Project }) {
           ) : (
             <div className="absolute inset-0 flex items-end">
               <div className="max-w-8xl w-full mx-auto px-6 md:px-10 pb-8">
-                <span className="font-display font-bold text-paper text-4xl md:text-6xl leading-none">
+                <span className="font-display font-bold text-paper text-3xl md:text-5xl leading-none">
                   {project.name}
                 </span>
               </div>
@@ -302,7 +302,7 @@ function FeaturedCard({ project }: { project: Project }) {
             <span className="eyebrow text-ash">{project.categoryLabel}</span>
             <span className="eyebrow text-ash">{project.stack.join(" · ")}</span>
           </div>
-          <h3 className="font-display font-bold text-3xl md:text-5xl text-ink leading-[1.02] tracking-tight transition-colors duration-200 group-hover:text-accent">
+          <h3 className="font-display font-bold text-2xl md:text-4xl text-ink leading-[1.02] tracking-tight transition-colors duration-200 group-hover:text-accent">
             {project.name}
           </h3>
         </div>
@@ -368,7 +368,7 @@ function ProjectCard({ project }: { project: Project }) {
             </span>
             <span
               aria-hidden="true"
-              className="absolute right-5 top-5 text-accent font-display font-black text-5xl opacity-80"
+              className="absolute right-5 top-5 text-accent font-display font-black text-4xl opacity-80"
             >
               ⌇
             </span>

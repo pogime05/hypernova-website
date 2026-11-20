@@ -51,7 +51,7 @@ export default function Process() {
           <p className="eyebrow text-ash mb-5">Our approach</p>
           <h2
             className="font-display font-extrabold text-ink tracking-[-0.02em] leading-[0.95]"
-            style={{ fontSize: "clamp(2.25rem, 5.5vw, 4.5rem)" }}
+            style={{ fontSize: "clamp(1.875rem, 3.5vw, 3rem)" }}
           >
             How we work.
           </h2>

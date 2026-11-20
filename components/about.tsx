@@ -30,7 +30,7 @@ export default function About() {
           <p className="eyebrow text-ash mb-6">Who&apos;s behind it</p>
           <h1
             className="font-display font-extrabold text-ink tracking-[-0.02em] leading-[0.95] max-w-4xl"
-            style={{ fontSize: "clamp(2.5rem, 6.5vw, 5.5rem)" }}
+            style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)" }}
           >
             Built by an independent studio, not a{" "}
             <span className="text-accent">faceless agency.</span>

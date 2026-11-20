@@ -67,7 +67,7 @@ export default function Contact() {
             <p className="eyebrow text-ash mb-6">Let&apos;s work together</p>
             <h1
               className="font-display font-extrabold text-ink tracking-[-0.02em] leading-[0.95]"
-              style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)" }}
+              style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)" }}
             >
               Got a project in mind?
             </h1>

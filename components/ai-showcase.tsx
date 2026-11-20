@@ -112,7 +112,7 @@ export default function AIShowcase({ preview = false }: { preview?: boolean }) {
       </p>
       <h2
         className="font-display font-extrabold text-ink tracking-[-0.02em] leading-[0.98]"
-        style={{ fontSize: "clamp(2rem, 4.5vw, 3.75rem)" }}
+        style={{ fontSize: "clamp(1.75rem, 3.5vw, 3rem)" }}
       >
         Intelligence,
         <br />

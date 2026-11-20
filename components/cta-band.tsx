@@ -23,7 +23,7 @@ export default function CTABand({
               <p className="eyebrow text-paper/50 mb-6">Start a project</p>
               <h2
                 className="font-display font-extrabold tracking-[-0.02em] leading-[0.95]"
-                style={{ fontSize: "clamp(2.5rem, 6.5vw, 6rem)" }}
+                style={{ fontSize: "clamp(2rem, 4vw, 3.75rem)" }}
               >
                 {heading}
               </h2>

@@ -25,7 +25,7 @@ export default function Hero() {
         {/* Headline */}
         <h1
           className="rise font-display font-extrabold text-ink tracking-[-0.02em] leading-[0.92] mt-10 md:mt-14"
-          style={{ fontSize: "clamp(2.75rem, 9vw, 9.5rem)", animationDelay: "0.13s" }}
+          style={{ fontSize: "clamp(2.25rem, 5.5vw, 5.5rem)", animationDelay: "0.13s" }}
         >
           Digital products,
           <br />
